@@ -1,6 +1,6 @@
 [![Build Status](https://travis-ci.org/sbarrat/cni.svg)]
 (https://travis-ci.org/sbarrat/cni)
-* CNI
+#CNI
 - PHP Version 5.2.6
 - PDO
 - PDO support	enabled
@@ -8,7 +8,7 @@
 - PDO Driver for MySQL, client library version	5.0.51a
 - Version CNI Estable 2.0e
 
-**TODO
+##TODO
 - Agregar Soporte Composer
 - Agregar Zend Framework via Composer
 - Limpieza y estandaricacion de codigo
