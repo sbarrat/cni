@@ -7,4 +7,4 @@ before_script:
 - pyrus install http://phptal.org/latest.tar.gz
 - pear install pear/PHP_CodeSniffer
 - phpenv rehash
-script: phpcs --standard=PSR2 /home/travis/build/sbarrat/naida/
+script: phpcs --standard=PSR2 /home/travis/build/sbarrat/cni
