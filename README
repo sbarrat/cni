@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/sbarrat/cni.svg)](https://travis-ci.org/sbarrat/cni)
 PHP Version 5.2.6
 PDO
 PDO support	enabled
