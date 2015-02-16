@@ -52,21 +52,21 @@ if((isset($_GET['factura'])) || (isset($_POST['factura']))) {
 	$im = imagecreatefromjpeg("logo_n.jpg");
 	$pdf->addImage($im,33,740,200);
     //10 aniversario
-    $gif = imagecreatefromgif("image001.gif");
-	$pdf->addImage(&$gif, 470, 750, 90);
+    //$gif = imagecreatefromgif("image001.gif");
+	//$pdf->addImage($gif, 470, 750, 90);
 	//fin 10 aniversario
 	/**
 	 * @todo Genera consumo alto revisar formato imagen
 	 * @var unknown_type
 	 */
-    $im = imagecreatefromjpeg("pie_n.jpg");
-	$pdf->addImage($im,0,0,600);
+    $im = imagecreatefromjpeg("pie_n1.jpg");
+	$pdf->addImage($im, 0, 15, 600);
 	/**
 	 * @todo Genera consumo alto revisar formato imagen
 	 * @var unknown_type
 	 */
-	$im = imagecreatefromjpeg("nif_n.jpg");
-	$pdf->addImage($im,0,200,33);
+	$im = imagecreatefromjpeg("nif_n1.JPG");
+	$pdf->addImage($im, 5, 115, 35);
 	$pdf->restoreState();
 	$pdf->closeObject();
 	$pdf->addObject( $all, 'all' );
@@ -91,7 +91,7 @@ if((isset($_GET['factura'])) || (isset($_POST['factura']))) {
 	$cliente = $resultado[6];
 	$texto="FECHA:".cambiaf($resultado[5]);
 	$pdf->addText(50,700,12,$texto);
-	$texto="Num. FACTURA:".$factura;
+	$texto="Num. FACTURA: ".$factura;
 	$pdf->addText(50,685,12,$texto);
 /*Datos cliente*/
 	$pdf->addText(265,698,10,"<b>".utf8_decode($resultado[0])."</b>");
@@ -186,10 +186,10 @@ from historico where factura like '$factura' group by factura";
 		{
 			$pdfcode = $pdf->output();
 			$nombre_factura = "factura_".$factura.".pdf";
-			$ruta_wxp = "\\\\172.26.0.131\\RED\\PLANTILLAS\\facturas\\";
+			$ruta_wxp = "\\\\HALL_TRES\\RED\\PLANTILLAS\\facturas\\";
 			if(isset($_POST['envio'])) {
 				include_once 'envia.php';
-				set_time_limit(120);	
+				set_time_limit(120);
 				envia($pdfcode, $factura, $dup);
 			} else {
 				$ruta = $ruta_wxp.$nombre_factura;
