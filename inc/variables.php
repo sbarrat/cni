@@ -14,19 +14,19 @@
  * @link     https://github.com/independenciacn/cni
  * @version  2.0e Estable
  */
-error_reporting(0);
+error_reporting(E_ALL);
 /**
  * Establecemos la zona horaria 
  */ 
-date_default_timezone_set('Europe/Madrid'); 
+ini_set("date.timezone", "Europe/Madrid");
 /**
- * Version de la aplicaci�n
+ * Version de la aplicación
  * 
  * @var string
  */
 define('VERSION',"2.0e");
 /**
- * Titulo de la aplicaci�n
+ * Titulo de la aplicación
  * 
  * @var string
  */
@@ -84,6 +84,7 @@ setlocale(LC_NUMERIC, 'es_ES');
  * Devuelve el precio formateado con 2 decimales separados por , miles . y
  * el simbolo del Euro;
  * @param integer $number
+ * @deprecated
  */
 function formatoDinero( $number ) {
     if ( SISTEMA == "windows" ) {
@@ -96,6 +97,7 @@ function formatoDinero( $number ) {
 /**
  * Devuelve el numero formateado con 2 decimales separados por , y miles .
  * @param unknown_type $number
+ * @deprecated
  */
 function formatoNoDinero( $number ) {
     $number = number_format($number,2,',','.');

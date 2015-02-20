@@ -16,14 +16,16 @@
  */
 require_once 'variables.php';
 require_once 'classes/Avisos.php';
+require_once 'classes/Listados.php';
 
 checkSession();
+function avisosHandler($vars) {
+	if (isset($vars['opcion']) && isset($_SESSION['usuario'])) {
+		
+	}
+}
 if (isset($_POST['opcion']) && isset($_SESSION['usuario'])) {
-    $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_NUMBER_INT);
-    $cadena = avisos();
-    if ($opcion == 1) {
-        $cadena = telefonos();
-    }
+    
 } elseif (isset($_SESSION['usuario'])) {
     $cadena = avisos();
 } else {
@@ -123,6 +125,7 @@ function cambiaf($stamp) //funcion del cambio de fecha
  * Genera el boton de ocultar telefono y el listado de telefonos
  * 
  * @return string $cadena
+ * @deprecated
  */
 function telefonos()
 {
@@ -138,28 +141,21 @@ function telefonos()
  * 
  * @param string $servicio
  * @return string $cadena
+ * @deprecated
  */
 function listado($servicio)
 {
-    global $con;
     $cadena ="<p/><u><b>".$servicio." del centro</b></u><p/>";
-    $sql = "SELECT c.Id,c.Nombre, z.valor, z.servicio,
-        (
-        SELECT valor
-        FROM z_sercont
-        WHERE servicio LIKE 'Codigo Negocio'
-        AND idemp LIKE z.idemp
-        LIMIT 1
-        )
-    AS Despacho, c.Categoria
-    FROM clientes AS c
-    INNER JOIN z_sercont AS z ON c.Id = z.idemp
-    WHERE z.servicio LIKE '".$servicio."'
-    ORDER BY Despacho";
-    $consulta = mysql_query($sql,$con);
-    $cadena .="<table><tr>";
+    $listado = new Listados();
+	$resultados = $listado->servicios($servicio);
+	$cadena .="<table><tr>";
     $i=0;
-    if (mysql_numrows($consulta)!=0) {
+    if ($resultados) {
+		foreach ($resultados as $resultado) {
+			var_dump($resultado);
+		}
+	}
+	if (mysql_numrows($consulta)!=0) {
         while(true == ($resultado = mysql_fetch_array($consulta)))
         {
             if ( preg_match('#despacho#i',$resultado[5])) {
@@ -196,6 +192,7 @@ function listado($servicio)
  * 2.- Dia de Pago - Si es hoy el dia del mes de pago
  * 
  * @return string
+ * @deprecated
  */
 function avisos_new()
 {

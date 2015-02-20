@@ -1,6 +1,18 @@
 <?php
+// TODO: Migrar de prototype a jQuery
+// TODO: Que se pueda modificar la contraseña de acceso
+// TODO: Agregar un nuevo campo a la factura: Nº Pedido
 require_once 'inc/variables.php';
+require_once 'inc/menu.php';
+require_once 'inc/avisos.php';
 checkSession();
+$msg = "";
+if(isset($_GET["exit"])) {
+	$msg = "<span class='ok'>Sesion Cerrada</span>";
+}
+if(isset($_GET["error"])) {
+	$msg = "<span class='ko'>Usuario o Contraseña Incorrecta</span>";
+}
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -18,81 +30,62 @@ checkSession();
 <body>
 <div id='cuerpo'>
 <?php
-/*
- * TODO: Que se pueda modificar la contraseña de acceso
- * TODO: Agregar un nuevo campo a la factura: Nº Pedido
- */
-if(isset($_SESSION['usuario'])) {
-	include_once 'inc/menu.php';
-	echo "<div id='menu_general'>";
-	echo menu();
-	echo "</div>";
-} else {
-?>
-<div id='registro'>
-<center>
-	<img src='imagenes/logotipo2.png' width='538px' alt='The Perfect Place' />
-</center>
-<p />
-<center>
+if(isset($_SESSION['usuario'])) : ?>
+	<div id='menu_general'>
+		<?php echo menu(); ?>
+	</div>
 <?php
-	if(isset($_GET["exit"]))
-		echo "<span class='ok'>Sesion Cerrada</span>";
-	if(isset($_GET["error"]))
-		echo "<span class='ko'>Usuario o Contrase&ntilde;a Incorrecta</span>";
-?>
-	<form id='login_usuario' method='post' action='inc/valida.php'>
-	<table width='30%' class="login">
-  	<tr>
-  	<td align='right'>
-	Usuario:
-	</td><td>
-	<input type='text' id="usuario" name="usuario" accesskey="u" tabindex="1" />
-	</td></tr>
-	<tr>
-	<td align='right'>
-	Contrase&ntilde;a:
-	</td><td>
-	<input type='password' id="passwd" name="passwd" accesskey="c" tabindex="2" />
-	</td></tr>
-	<tr>
-	<td align='center' colspan="2">
-	<input type='submit' class='boton' accesskey="e" tabindex="3"  value = '[->]Entrar' />
-	</td></tr>
-	<tr><td colspan='2'></td></tr>
-	</table>
-	</form>
-</center>
-<p />
-<center>
-  <p>
-  	<span class="etiqueta">Desarrollado por:</span>
-  </p>
-  <p>
-  	<a href='http://www.ensenalia.com'><img src='imagenes/ensenalia.jpg' width='128' /></a>
-  </p>
-    GoodOf Version
-</center>
+else : ?>
+	<div id='registro'>
+	<center>
+		<img src='imagenes/logotipo2.png' width='538px' alt='The Perfect Place' />
+	</center>
+	<p />
+	<center>
+		<?php echo $msg; ?>
+		<form id='login_usuario' method='post' action='inc/valida.php'>
+			<table width='30%' class="login">
+  				<tr>
+  					<td align='right'>Usuario:</td>
+					<td><input type='text' id="usuario" name="usuario" accesskey="u" tabindex="1" /></td>
+				</tr>
+				<tr>
+					<td align='right'>Contraseña:</td>
+					<td><input type='password' id="passwd" name="passwd" accesskey="c" tabindex="2" /></td>
+				</tr>
+				<tr>
+					<td align='center' colspan="2">
+						<input type='submit' class='boton' accesskey="e" tabindex="3"  value = '[->]Entrar' />
+					</td>
+				</tr>
+				<tr>
+					<td colspan='2'></td>
+				</tr>
+			</table>
+		</form>
+	</center>
+	<p />
+	<center>
+  		<p><span class="etiqueta">Desarrollado por:</span></p>
+  		<p><a href='http://www.ensenalia.com'><img src='imagenes/ensenalia.jpg' width='128' /></a></p>
+    	<p>
+			Revisión 2015
+		</p>
+	</center>
  </div>
 <?php 
-} 
-?>
+endif; ?>
 </div>
 <div id='datos_interesantes'></div>
 <div id='debug'></div>
+<?php
+if(isset($_SESSION['usuario'])) : ?>
+	<div id='avisos'>
+	<?php echo avisosHandler($_POST); ?>
+	</div>
+	<div id='resultados'></div>
+	<div id='formulario'></div>
 <?php 
-if(isset($_SESSION['usuario']))
-{
-	echo "<div id='avisos'>";
-	include_once 'inc/avisos.php';
-	//Se muestran los avisos solo con el include
-	//echo "Eh co lets go";
-	//echo avisos();
-	echo "</div>";
-	echo "<div id='resultados'></div>";//linea de los resultados de busqueda
-	echo "<div id='formulario'></div>";//linea del formulario
-	//echo "<div id='debug'></div>";//linea de depuracion
-}
-?>
+endif; ?>
 </body>
 </html>
