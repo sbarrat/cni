@@ -1,0 +1,15 @@
+{
+  "name": "ensenalia/cni",
+  "description": "Aplicacion Gestion Independencia",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Ruben Lacasa Mas",
+      "email": "ruben@ensenalia.com"
+    }
+  ],
+  "require": {
+    "zendframework/zendframework1": "1.12.11"
+  }
+}

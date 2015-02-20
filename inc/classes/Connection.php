@@ -11,7 +11,7 @@ class Connection
     private $dbname = "centro";
 
     /**
-     *
+     * Constructor de conexion a la base de datos
      */
     public function __construct()
     {
@@ -30,10 +30,10 @@ class Connection
     }
 
     /**
-     * Ejecuta la consulta
-     * @param $sql
-     * @param null $params
-     * @return array
+     * Pasamos la consulta y los parametros y la ejecuta
+     * @param  string $sql    Consulta sql
+     * @param  array $params  parametros de la consulta
+     * @return array          resultado
      */
     public function consulta($sql, $params = null)
     {

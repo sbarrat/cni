@@ -10,7 +10,7 @@
  * @package  cni/inc
  * @author   Ruben Lacasa Mas <ruben@ensenalia.com>
  * @license  http://creativecommons.org/licenses/by-nc-nd/3.0/
- * 			 Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported
+ *           Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported
  * @link     https://github.com/independenciacn/cni
  * @version  2.0e Estable
  */
@@ -21,20 +21,20 @@ require_once 'classes/Listados.php';
 checkSession();
 
 function avisosHandler($vars) {
-	$cadena = "";
-	if (isset($vars['opcion']) && isset($_SESSION['usuario'])) {
-		$opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_NUMBER_INT);
-    	$cadena = avisos();
-    	if ($opcion == 1) {
-        	$cadena = telefonos();
-    	}
-	}
-	return $cadena;
+    $cadena = "";
+    if (isset($vars['opcion']) && isset($_SESSION['usuario'])) {
+        $opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_NUMBER_INT);
+        $cadena = avisos();
+        if ($opcion == 1) {
+            $cadena = telefonos();
+        }
+    }
+    return $cadena;
 }
 
 /**
  * Funcion que muestra los avisos
- * 
+ *
  * @return string $cadena
  */
 function avisos()
@@ -42,16 +42,16 @@ function avisos()
     $avisos = new Avisos();
 
     $texto = "
-	<input type='button' class='boton' value='[<]Ocultar Avisos'
-    	onclick='cerrar_avisos()'/>
-		<table class='tabla'>
+    <input type='button' class='boton' value='[<]Ocultar Avisos'
+        onclick='cerrar_avisos()'/>
+        <table class='tabla'>
         <tr>
             <th colspan='2'>Cartel de Avisos</th>
-		</tr>
+        </tr>
         <tr>
             <th>Cumpleaños</th>
-			<th>Contratos</th>
-		</tr>";
+            <th>Contratos</th>
+        </tr>";
 
     $rangos = array(
         'hoy' => 'Hoy',
@@ -110,8 +110,8 @@ function avisos()
     return $texto;
 }
 /**
- * Funcion del cambio de fecha 
- * 
+ * Funcion del cambio de fecha
+ *
  * @deprecated
  * @param string $stamp
  * @return string $fecha
@@ -119,16 +119,15 @@ function avisos()
 function cambiaf($stamp) //funcion del cambio de fecha
 {
     //formato en el que llega aaaa-mm-dd o al reves
-    $fdia = explode("-",$stamp);
+    $fdia = explode("-", $stamp);
     $fecha = $fdia[2]."-".$fdia[1]."-".$fdia[0];
     return $fecha;
 }
 
 /**
  * Genera el boton de ocultar telefono y el listado de telefonos
- * 
+ *
  * @return string $cadena
- * @deprecated
  */
 function telefonos()
 {
@@ -141,7 +140,7 @@ function telefonos()
 }
 /**
  * Devuelve el listado del servicio seleccionado
- * 
+ *
  * @param string $servicio
  * @return string $cadena
  * @deprecated
@@ -150,25 +149,25 @@ function listado($servicio)
 {
     $cadena ="<p/><u><b>".$servicio." del centro</b></u><p/>";
     $listado = new Listados();
-	$resultados = $listado->servicios($servicio);
-	$cadena .="<table><tr>";
+    $resultados = $listado->servicios($servicio);
+    $cadena .="<table><tr>";
     $i=0;
     if ($resultados) {
-		foreach ($resultados as $resultado) {
-			var_dump($resultado);
-		}
-	}
-	if (mysql_numrows($consulta)!=0) {
-        while(true == ($resultado = mysql_fetch_array($consulta)))
+        foreach ($resultados as $resultado) {
+            var_dump($resultado);
+        }
+    }
+    if (mysql_numrows($consulta)!=0) {
+        while (true == ($resultado = mysql_fetch_array($consulta)))
         {
-            if ( preg_match('#despacho#i',$resultado[5])) {
+            if (preg_match('#despacho#i', $resultado[5])) {
                 $color="#69C";
-            } elseif ( preg_match('#domicili#i', $resultado[5])) {
+            } elseif (preg_match('#domicili#i', $resultado[5])) {
                 $color="#F90";
             } else {
                 $color="#ccc";
             }
-            if($i%4==0) {
+            if ($i%4==0) {
                 $cadena .="</tr><tr>";
             }
             $cadena .= "<th bgcolor='".$color."' align='left'>
@@ -182,18 +181,18 @@ function listado($servicio)
     return $cadena;
 }
 /**
- * que queremos avisar principalmente fin de contratos en el dia y 
- * en el mes tanto de clientes como de proveedores. 
- * De donde se coge ese dato, de la tabla facturacion 
- * AUDITAREMOS campos finicio, duracion, valores de duracion 
- * dias-espacio es decir 1-H, 1-D, 1-S, 1-M, 1-A 
+ * que queremos avisar principalmente fin de contratos en el dia y
+ * en el mes tanto de clientes como de proveedores.
+ * De donde se coge ese dato, de la tabla facturacion
+ * AUDITAREMOS campos finicio, duracion, valores de duracion
+ * dias-espacio es decir 1-H, 1-D, 1-S, 1-M, 1-A
  * Clientes (facturacion)
  * 1.- Fecha inicio + duracion
  * 2.- Dia de Pago - Si es hoy el dia del mes de pago
  * Proveedores (z_facturacion)
  * 1.- Fecha inicio + duracion
  * 2.- Dia de Pago - Si es hoy el dia del mes de pago
- * 
+ *
  * @return string
  * @deprecated
  */
@@ -208,14 +207,14 @@ function avisos_new()
 //$cadena .= "<tr><th colspan='2'>AVISOS</th></tr>";
 //Clientes FInalizan HOY
     $cadena .= "<tr><th Colspan='2'>Hoy finalizan contrato</th></tr>";
-    $sql = "SELECT facturacion.id, 
+    $sql = "SELECT facturacion.id,
         facturacion.idemp,
         facturacion.finicio,
         facturacion.duracion,
         facturacion.renovacion,
         clientes.Nombre
         FROM facturacion INNER JOIN clientes ON facturacion.idemp = clientes.Id
-        WHERE date_format(renovacion,'%d %c %y') 
+        WHERE date_format(renovacion,'%d %c %y')
         LIKE date_format(curdate(),'%d %c %y') and clientes.Estado_de_cliente != 0";
     $consulta = mysql_query($sql,$con);
     $total = mysql_numrows($consulta);
@@ -236,16 +235,16 @@ function avisos_new()
 //Clientes FInalizan este mes
     $cadena .= "<table width='100%'>";
     $cadena .= "<tr><th>Dia</th><th>Finalizan contrato este mes</th></tr>";
-    $sql = "SELECT facturacion.id, 
+    $sql = "SELECT facturacion.id,
         facturacion.idemp,
         facturacion.finicio,
         facturacion.duracion,
         facturacion.renovacion,
         clientes.Nombre
-        FROM facturacion INNER JOIN clientes 
+        FROM facturacion INNER JOIN clientes
         ON facturacion.idemp = clientes.Id
-        WHERE month(renovacion) LIKE month(curdate()) 
-        and year(renovacion) like year(curdate()) 
+        WHERE month(renovacion) LIKE month(curdate())
+        and year(renovacion) like year(curdate())
         and clientes.Estado_de_cliente != 0 order by renovacion asc";
     $consulta = mysql_query($sql,$con);
     $total = mysql_numrows($consulta);
@@ -269,16 +268,16 @@ function avisos_new()
 //Clientes FInalizan este mes
     $cadena .= "<table width='100%'>";
     $cadena .= "<tr><th>Dia</th><th>Finalizan contrato en los proximos 60 dias</th></tr>";
-    $sql = "SELECT facturacion.id, 
+    $sql = "SELECT facturacion.id,
         facturacion.idemp,
         facturacion.finicio,
         facturacion.duracion,
         facturacion.renovacion,
         clientes.Nombre
         FROM facturacion INNER JOIN clientes ON facturacion.idemp = clientes.Id
-        WHERE (CURDATE() <= renovacion) and 
-        (DATE_ADD(CURDATE(),INTERVAL 60 DAY)) >= renovacion 
-        and clientes.Estado_de_cliente != 0 order by Month(renovacion) asc, 
+        WHERE (CURDATE() <= renovacion) and
+        (DATE_ADD(CURDATE(),INTERVAL 60 DAY)) >= renovacion
+        and clientes.Estado_de_cliente != 0 order by Month(renovacion) asc,
         DAY(renovacion) asc";
     $consulta = mysql_query($sql,$con);
     $total = mysql_numrows($consulta);
