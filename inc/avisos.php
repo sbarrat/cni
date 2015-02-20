@@ -19,19 +19,18 @@ require_once 'classes/Avisos.php';
 require_once 'classes/Listados.php';
 
 checkSession();
+
 function avisosHandler($vars) {
+	$cadena = "";
 	if (isset($vars['opcion']) && isset($_SESSION['usuario'])) {
-		
+		$opcion = filter_input(INPUT_POST, 'opcion', FILTER_SANITIZE_NUMBER_INT);
+    	$cadena = avisos();
+    	if ($opcion == 1) {
+        	$cadena = telefonos();
+    	}
 	}
+	return $cadena;
 }
-if (isset($_POST['opcion']) && isset($_SESSION['usuario'])) {
-    
-} elseif (isset($_SESSION['usuario'])) {
-    $cadena = avisos();
-} else {
-    $cadena = "";
-}
-echo $cadena;
 
 /**
  * Funcion que muestra los avisos
@@ -42,13 +41,17 @@ function avisos()
 {
     $avisos = new Avisos();
 
-    $texto="<input type='button' class='boton' value='[<]Ocultar Avisos'
-    onclick='cerrar_avisos()'/>
-    <table class='tabla'>
+    $texto = "
+	<input type='button' class='boton' value='[<]Ocultar Avisos'
+    	onclick='cerrar_avisos()'/>
+		<table class='tabla'>
         <tr>
-            <th colspan='2'>Cartel de Avisos</th></tr>
+            <th colspan='2'>Cartel de Avisos</th>
+		</tr>
         <tr>
-            <th>Cumpleaños</th><th>Contratos</th></tr>";
+            <th>Cumpleaños</th>
+			<th>Contratos</th>
+		</tr>";
 
     $rangos = array(
         'hoy' => 'Hoy',
