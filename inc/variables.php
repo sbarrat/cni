@@ -24,13 +24,13 @@ ini_set("date.timezone", "Europe/Madrid");
  *
  * @var string
  */
-define('VERSION',"2.0e");
+define('VERSION', "2.0e");
 /**
  * Titulo de la aplicación
  *
  * @var string
  */
-define('APLICACION','Aplicación Gestión Independencia Centro Negocios');
+define('APLICACION', 'Aplicación Gestión Independencia Centro Negocios');
 /**
  * Iva Generico a utilizar en la aplicación
  * @var integer
@@ -80,6 +80,9 @@ define("NOK", "imagenes/error.png");
 define("SISTEMA", "windows");
 setlocale(LC_ALL, 'es_ES');
 setlocale(LC_NUMERIC, 'es_ES');
+
+$appPath = get_include_path(). PATH_SEPARATOR. $_SERVER['DOCUMENT_ROOT'];
+set_include_path($appPath);
 /**
  * Devuelve el precio formateado con 2 decimales separados por , miles . y
  * el simbolo del Euro;

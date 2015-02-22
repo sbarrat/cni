@@ -31,12 +31,14 @@ if (isset($_GET["error"])) {
 <body>
 <div id='cuerpo'>
 <?php
-if(isset($_SESSION['usuario'])) : ?>
+if (isset($_SESSION['usuario'])) :
+    ?>
     <div id='menu_general'>
         <?php echo menu(); ?>
     </div>
     <?php
-else : ?>
+else :
+    ?>
     <div id='registro'>
     <center>
         <img src='imagenes/logotipo2.png' width='538px'
@@ -81,7 +83,8 @@ endif; ?>
 <div id='datos_interesantes'></div>
 <div id='debug'></div>
 <?php
-if(isset($_SESSION['usuario'])) : ?>
+if (isset($_SESSION['usuario'])) :
+    ?>
     <div id='avisos'>
     <?php echo avisosHandler($_POST); ?>
     </div>

@@ -1,4 +1,7 @@
 <?php
+/**
+ * Clase que controla la conexión con la base de datos
+ */
 class Connection
 {
     /**
@@ -26,6 +29,7 @@ class Connection
             );
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
+            xdebug_var_dump($e->getTraceAsString());
         }
     }
 
