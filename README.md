@@ -1,6 +1,6 @@
-[![Build Status](https://travis-ci.org/sbarrat/cni.svg)]
+[![Build Status](https://travis-ci.org/sbarrat/cni.svg)](https://travis-ci.org/sbarrat/cni)
 [![Code Climate](https://codeclimate.com/github/sbarrat/cni/badges/gpa.svg)](https://codeclimate.com/github/sbarrat/cni)
-(https://travis-ci.org/sbarrat/cni)
+
 #CNI
 - PHP Version 5.2.6
 - PDO
