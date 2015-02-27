@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/sbarrat/cni.svg)]
+[![Code Climate](https://codeclimate.com/github/sbarrat/cni/badges/gpa.svg)](https://codeclimate.com/github/sbarrat/cni)
 (https://travis-ci.org/sbarrat/cni)
 #CNI
 - PHP Version 5.2.6

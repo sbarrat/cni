@@ -18,15 +18,16 @@ if (isset($_GET["error"])) {
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<link href="estilo/cni.css" rel="stylesheet" type="text/css">
-<link href="estilo/calendario.css" rel="stylesheet" type="text/css">
-<script type="text/javascript" src='js/prototype.js'></script>
-<script type="text/javascript" src="js/calendar.js"></script>
-<script type="text/javascript" src="js/lang/calendar-es.js"></script>
-<script type="text/javascript" src="js/calendar-setup.js"></script>
-<script type="text/javascript" src='js/independencia.js'></script>
-<title>Principal - <?php echo $title ?></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="robots" content="noindex, nofollow">
+	<link href="estilo/cni.css" rel="stylesheet" type="text/css">
+	<link href="estilo/calendario.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src='js/prototype.js'></script>
+	<script type="text/javascript" src="js/calendar.js"></script>
+	<script type="text/javascript" src="js/lang/calendar-es.js"></script>
+	<script type="text/javascript" src="js/calendar-setup.js"></script>
+	<script type="text/javascript" src='js/independencia.js'></script>
+	<title>Principal - <?php echo $title ?></title>
 </head>
 <body>
 <div id='cuerpo'>
