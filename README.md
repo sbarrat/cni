@@ -1,18 +1,17 @@
-CNI 2.0e
-========
+[![Build Status](https://travis-ci.org/sbarrat/cni.svg)]
+[![Code Climate](https://codeclimate.com/github/sbarrat/cni/badges/gpa.svg)](https://codeclimate.com/github/sbarrat/cni)
+(https://travis-ci.org/sbarrat/cni)
+#CNI
+- PHP Version 5.2.6
+- PDO
+- PDO support	enabled
+- PDO drivers 	mysql, sqlite, sqlite2
+- PDO Driver for MySQL, client library version	5.0.51a
+- Version CNI Estable 2.0e
 
-Requeriments
-------------
-*   PHP Version 5.2
-*   PDO support enabled
-*   PDO drivers MySQL
-
-Libraries
----------
-*   Prototype (all sections except entradas2)
-*   jQuery 1.4.4 ( entradas2 )
-*   jQuery UI 1.8.8 ( entradas 2 )
-*   jpgraph ( entradas 2)
-*   ezpdf
-*   Zend Framework 1.x ( rapido )
-*   PEAR
+##TODO
+- Agregar Soporte Composer
+- Agregar Zend Framework via Composer
+- Limpieza y estandaricacion de codigo
+- Agregar Soporte para versión 5.3
+- Eliminar funciones DEPRECATED
