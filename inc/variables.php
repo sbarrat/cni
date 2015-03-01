@@ -10,7 +10,7 @@
  * @package  cni/inc
  * @author   Ruben Lacasa Mas <ruben@ensenalia.com>
  * @license  http://creativecommons.org/licenses/by-nc-nd/3.0/
- * 			 Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported
+ *           Creative Commons Reconocimiento-NoComercial-SinObraDerivada 3.0 Unported
  * @link     https://github.com/independenciacn/cni
  * @version  2.0e Estable
  */
@@ -102,15 +102,17 @@ function formatoDinero( $number ) {
  * @param unknown_type $number
  * @deprecated
  */
-function formatoNoDinero( $number ) {
-    $number = number_format($number,2,',','.');
+function formatoNoDinero($number)
+{
+    $number = number_format($number, 2, ',', '.');
     return $number;
 }
 /**
  * Chequea si la sesion se ha iniciado
  */
-function checkSession(){
-    if ( session_id() != null ){
+function checkSession()
+{
+    if (session_id() != null) {
         session_regenerate_id();
     } else {
         session_start();
@@ -124,7 +126,7 @@ function checkSession(){
  */
 function clase($k)
 {
-    $clase = ( $k%2 == 0)? 'par': 'impar';
+    $clase = ( $k % 2 == 0)? 'par': 'impar';
     return $clase;
 }
 /**
