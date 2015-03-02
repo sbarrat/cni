@@ -3,18 +3,18 @@
  */
 function formulario_despacho(despacho)
 {
-		var url ="datos.php"
-		var cliente = $F('cliente_despacho_'+despacho)
-		var pars = "opcion=0&despacho="+despacho+"&cliente="+cliente
+		var url ="datos.php";
+		var cliente = $F('cliente_despacho_' + despacho);
+		var pars = "opcion=0&despacho=" + despacho + "&cliente=" + cliente;
 		var myAjax = new Ajax.Request(url,
 		 {
 				method:'post',
 				parameters: pars,
 				onComplete: function gen(t)
 				{
-					ver_formulario_agenda()
-					$('formulario_agenda').innerHTML = t.responseText
-					campos_fecha()
+					ver_formulario_agenda();
+					$('formulario_agenda').innerHTML = t.responseText;
+					campos_fecha();
 				}
 		});
 }
@@ -23,20 +23,20 @@ function formulario_despacho(despacho)
  */
 function formulario_despacho_semana(despacho,dia)
 {
-	
-		var url ="datos.php"
-		var pars = "opcion=0&despacho="+despacho+"&dia="+dia
-		
+
+		var url ="datos.php";
+		var pars = "opcion=0&despacho="+despacho+"&dia="+dia;
+
 		var myAjax = new Ajax.Request(url,
 		 {
 				method:'post',
 				parameters: pars,
 				onComplete: function gen(t)
 				{
-					ver_formulario_agenda()
-					$('formulario_agenda').innerHTML = t.responseText
-					campos_fecha()
-					
+					ver_formulario_agenda();
+					$('formulario_agenda').innerHTML = t.responseText;
+					campos_fecha();
+
 				}
 		});
 }
@@ -45,16 +45,16 @@ function formulario_despacho_semana(despacho,dia)
  */
 function ver_formulario_agenda()
 {
-	var estilo=$('formulario_agenda').style
-	estilo.visibility="visible"
-	estilo.display="block"
+	var estilo=$('formulario_agenda').style;
+	estilo.visibility="visible";
+	estilo.display="block";
 }
 /*
  * Cierra formulario del despacho
  */
 function cerrar_formulario_despacho()
 {
-	$('formulario_agenda').innerHTML = ""
+	$('formulario_agenda').innerHTML = "";
 }
 /*
  * Busca el cliente
@@ -63,15 +63,15 @@ function busca_cliente()
 {
 	var cadena = $F('cliente');
 	var url = "datos.php";
-	var pars = "opcion=1&texto="+cadena
+	var pars = "opcion=1&texto="+cadena;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(respuesta) 
-			{ 
-				$('listado_clientes_agenda').innerHTML = respuesta.responseText
+		onComplete:
+			function gen(respuesta)
+			{
+				$('listado_clientes_agenda').innerHTML = respuesta.responseText;
 			}
 	});
 }
@@ -81,20 +81,20 @@ function busca_cliente()
 function marca(id_cliente)
 {
 	var url = "datos.php";
-	var pars = "opcion=2&cliente="+id_cliente
+	var pars = "opcion=2&cliente="+id_cliente;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(respuesta) 
-			{ 
-				var datos = new String(respuesta.responseText)
-				var final = datos.split(';')
-				$('id_cliente').value = final[0]
-				$('cliente').value = final[1]
-				$('listado_clientes_agenda').innerHTML = ""
-				
+		onComplete:
+			function gen(respuesta)
+			{
+				var datos = respuesta.responseText;
+				var final = split(';');
+				$('id_cliente').value = final[0];
+				$('cliente').value = final[1];
+				$('listado_clientes_agenda').innerHTML = "";
+
 			}
 	});
 }
@@ -103,23 +103,23 @@ function marca(id_cliente)
  */
 function cambia_color(id)
 {
-	var estilo = $('linea_'+id).style
-	estilo.backgroundColor = "#00FF00"
+	var estilo = $('linea_'+id).style;
+	estilo.backgroundColor = "#00FF00";
 }
 /*
  * Quita el color al perder el foco en el cuadro de busqueda
  */
 function quitar_color(id)
 {
-	var estilo = $('linea_'+id).style
-	estilo.backgroundColor = ""
+	var estilo = $('linea_'+id).style;
+	estilo.backgroundColor = "";
 }
 /*
  * Quita el nombre del cliente en el cuadro de busqueda
  */
 function limpia_nombre_cliente()
 {
-	$('cliente').value = ""
+	$('cliente').value = "";
 }
 /*
  * Formato para la lanzar el script de la fecha
@@ -128,22 +128,22 @@ function campos_fecha()
 {
 
 		Calendar.setup({
-		inputField     :    'finc',     
-		ifFormat       :    '%d-%m-%Y',       
-		showsTime      :    false,            
-		button         :    'trigger_finc',   
-		singleClick    :    true,           
-		step           :    1                
-		})
-		
+		inputField     :    'finc',
+		ifFormat       :    '%d-%m-%Y',
+		showsTime      :    false,
+		button         :    'trigger_finc',
+		singleClick    :    true,
+		step           :    1
+		});
+
 		Calendar.setup({
-		inputField     :    'ffin',      
-		ifFormat       :    '%d-%m-%Y',       
-		showsTime      :    false,            
-		button         :    'trigger_ffin',   
-		singleClick    :    true,           
-		step           :    1                
-		})
+		inputField     :    'ffin',
+		ifFormat       :    '%d-%m-%Y',
+		showsTime      :    false,
+		button         :    'trigger_ffin',
+		singleClick    :    true,
+		step           :    1
+		});
 }
 /*
  * Muestra la informacion del cliente
@@ -151,18 +151,18 @@ function campos_fecha()
 function informacion_cliente(despacho,tipo,id)
 {
 	var url = "datos.php";
-	var pars = "opcion=3&despacho="+despacho+"&tipo="+tipo+"&id="+id
+	var pars = "opcion=3&despacho="+despacho+"&tipo="+tipo+"&id="+id;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(t) 
-			{ 
-				var estilo=$('informacion_despacho').style
-				estilo.visibility="visible"
-				estilo.display="block"
-				$('informacion_despacho').innerHTML = t.responseText
+		onComplete:
+			function gen(t)
+			{
+				var estilo=$('informacion_despacho').style;
+				estilo.visibility="visible";
+				estilo.display="block";
+				$('informacion_despacho').innerHTML = t.responseText;
 			}
 	});
 }
@@ -173,12 +173,12 @@ function guarda_obs(id,despacho,tipo)
 {
 	var url="datos.php";
 	///	var cos = "&repe_l=" + $F('repe_l') + "&repe_m=" + $F('repe_m') + "&repe_x=" + $F('repe_x') + "&repe_j=" + $F('repe_j') + "&repe_v=" + $F('repe_v')
-	
-	//if (tipo == 1) 
+
+	//if (tipo == 1)
 		//var pars = "opcion=9&id=" + id + "&obs=" + encodeURI($F('obs')) + "&conformidad=" + $F('conformidad')
 	//else {
-		var cos = "&repe_l=" + $F('repe_l') + "&repe_m=" + $F('repe_m') + "&repe_x=" + $F('repe_x') + "&repe_j=" + $F('repe_j') + "&repe_v=" + $F('repe_v')
-		var pars = "opcion=9&id=" + id + "&obs=" + encodeURI($F('obs')) + "&conformidad=" + $F('conformidad') + cos + "&hinc=" + $F('hinc') + "&hfin=" + $F('hfin') + "&finc=" + $F('finc') + "&ffin=" + $F('ffin')
+		var cos = "&repe_l=" + $F('repe_l') + "&repe_m=" + $F('repe_m') + "&repe_x=" + $F('repe_x') + "&repe_j=" + $F('repe_j') + "&repe_v=" + $F('repe_v');
+		var pars = "opcion=9&id=" + id + "&obs=" + encodeURI($F('obs')) + "&conformidad=" + $F('conformidad') + cos + "&hinc=" + $F('hinc') + "&hfin=" + $F('hfin') + "&finc=" + $F('finc') + "&ffin=" + $F('ffin');
 	//}
 	//alert(pars)
 	var myAjax = new Ajax.Request(url,
@@ -186,11 +186,11 @@ function guarda_obs(id,despacho,tipo)
 		method: 'post',
 		parameters: pars,
 		onComplete: function gen(t){
-			informacion_cliente(despacho, tipo,id)
+			informacion_cliente(despacho, tipo,id);
 			cambia_vista();
 			cambia_fecha($F('finc'));
 		}
-		
+
 	});
 }
 /*
@@ -198,10 +198,10 @@ function guarda_obs(id,despacho,tipo)
  */
 function cerrar_informacion_despacho()
 {
-	var estilo=$('informacion_despacho').style
-	estilo.visibility="hidden"
-	estilo.display="none"
-	$('informacion_despacho').innerHTML = ""
+	var estilo=$('informacion_despacho').style;
+	estilo.visibility="hidden";
+	estilo.display="none";
+	$('informacion_despacho').innerHTML = "";
 }
 
 /*
@@ -209,10 +209,10 @@ function cerrar_informacion_despacho()
  */
 function cerrar_formulario_agenda()
 {
-	var estilo=$('formulario_agenda').style
-	estilo.visibility="hidden"
-	estilo.display="none"
-	$('formulario_agenda').innerHTML = ""
+	var estilo=$('formulario_agenda').style;
+	estilo.visibility="hidden";
+	estilo.display="none";
+	$('formulario_agenda').innerHTML = "";
 }
 
 /*
@@ -220,29 +220,32 @@ function cerrar_formulario_agenda()
  */
 function guarda_despacho()
 {
-	var url = "datos.php"
-	var despacho = $F('despacho')
-	var formulario = $('form_despachos')
-	var pars="opcion=4&"+Form.serialize(formulario)
+	var url = "datos.php";
+	var despacho = $F('despacho');
+	var formulario = $('form_despachos');
+	var pars="opcion=4&"+Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(t) 
-			{ 
+		onComplete:
+			function gen(t)
+			{
 				switch($('tipo_vista').value)
 				{
-					case "0":$('despacho_'+despacho).innerHTML = t.responseText
-					break
-					case "1":if(t.responseText=='Despacho Ocupado')
-					$('debug').innerHTML ="<span class='no_confirmado'>Despacho Ocupado</span>"
-					break
+					case "0":
+						$('despacho_'+despacho).innerHTML = t.responseText;
+					break;
+					case "1":
+						if (t.responseText=='Despacho Ocupado') {
+							$('debug').innerHTML ="<span class='no_confirmado'>Despacho Ocupado</span>";
+						}
+					break;
 				}
 			}
 	});
-	cambia_vista()
-	cambia_fecha($F('finc'))
+	cambia_vista();
+	cambia_fecha($F('finc'));
 }
 
 /*
@@ -250,17 +253,17 @@ function guarda_despacho()
  */
 function detalles_ocupacion(despacho)
 {
-	ver_formulario_agenda()
-	var url="datos.php"
-	var pars='opcion=5&despacho='+despacho
+	ver_formulario_agenda();
+	var url="datos.php";
+	var pars='opcion=5&despacho='+despacho;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(t) 
-			{ 
-				$('formulario_agenda').innerHTML = t.responseText
+		onComplete:
+			function gen(t)
+			{
+				$('formulario_agenda').innerHTML = t.responseText;
 			}
 	});
 }
@@ -269,18 +272,18 @@ function detalles_ocupacion(despacho)
  */
 function editar_ocupacion(ocupacion)
 {
-	
-	var url="datos.php"
-	var pars='opcion=6&ocupacion='+ocupacion
+
+	var url="datos.php";
+	var pars='opcion=6&ocupacion='+ocupacion;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(t) 
-			{ 
-				$('formulario_agenda').innerHTML = t.responseText
-				campos_fecha()
+		onComplete:
+			function gen(t)
+			{
+				$('formulario_agenda').innerHTML = t.responseText;
+				campos_fecha();
 			}
 	});
 }
@@ -290,21 +293,21 @@ function editar_ocupacion(ocupacion)
  */
 function actualiza_ocupacion()
 {
-	var url = "datos.php"
-	var despacho = $F('despacho')
-	var formulario = $('form_despachos')
-	var pars="opcion=7&"+Form.serialize(formulario)
+	var url = "datos.php";
+	var despacho = $F('despacho');
+	var formulario = $('form_despachos');
+	var pars="opcion=7&"+Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete: 
-			function gen(t) 
-			{ 
-				$('despacho_'+despacho).innerHTML = t.responseText
-				detalles_ocupacion(despacho)
+		onComplete:
+			function gen(t)
+			{
+				$('despacho_'+despacho).innerHTML = t.responseText;
+				detalles_ocupacion(despacho);
 			}
-	});	
+	});
 }
 
 /*
@@ -312,24 +315,24 @@ function actualiza_ocupacion()
  */
 function borra_ocupacion(ocupacion)
 {
-	var t=confirm(String.fromCharCode(191)+"Borrar Ocupacion?")
-	if (t == true)
+	var t=confirm(String.fromCharCode(191)+"Borrar Ocupacion?");
+	if (t === true)
 	{
-		var url="datos.php"
-		var despacho=$F('codigo_despacho')
-		var pars='opcion=8&ocupacion='+ocupacion+'&despacho='+despacho
+		var url="datos.php";
+		var despacho=$F('codigo_despacho');
+		var pars='opcion=8&ocupacion='+ocupacion+'&despacho='+despacho;
 		var myAjax = new Ajax.Request(url,
 			{
 				method: 'post',
 				parameters: pars,
-				onComplete: 
+				onComplete:
 					cambia_vista()
-					
-				
-				
+
+
+
 			});
-		cambia_fecha($F('finc'))
-		cerrar_informacion_despacho()
+		cambia_fecha($F('finc'));
+		cerrar_informacion_despacho();
 	}
 }
 
@@ -338,27 +341,34 @@ function borra_ocupacion(ocupacion)
  */
 function cambia_vista()
 {
+	var url = "";
 	switch($('tipo_vista').value)
 	{
-		case "0":var url="despachos.php"
-		break
-		case "1":var url="semana.php"
-		break
-		case "2":var url="interna.php"
-		break
-		case "3":var url="tareas.php"
-		break
-		case "4":var url="notas.php"
+		case "0":
+			url = "despachos.php";
+		break;
+		case "1":
+			url = "semana.php";
+		break;
+		case "2":
+			url = "interna.php";
+		break;
+		case "3":
+			url = "tareas.php";
+		break;
+		case "4":
+			url = "notas.php";
+		break;
 	}
-	var myAjax = new Ajax.Request(url,
+	var myAjax = new Ajax.Request(
+		url,
 		{
 			method: 'post',
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('vista').innerHTML = t.responseText
-				if ($('tipo_vista').value!=0) 
-				{
+			onComplete:
+			function gen(t)
+			{
+				$('vista').innerHTML = t.responseText;
+				if ($('tipo_vista').value !== 0) {
 					Calendar.setup({
 					inputField     :    'semana',      // id of the input field
 					ifFormat       :    '%d-%m-%Y',       // format of the input field
@@ -366,58 +376,62 @@ function cambia_vista()
 					button         :    'f_trigger_semana',   // trigger for the calendar (button ID)
 					singleClick    :    true,           // double-click mode
 					step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-					})
-				if($('tipo_vista').value == 3)
-				tareas_no_realizadas()
+					});
+					if($('tipo_vista').value == 3) {
+						tareas_no_realizadas();
+					}
 				}
-				
 			}
 		});
 }
+/**
+ * [tareas_no_realizadas description]
+ * @return {[type]} [description]
+ */
 function tareas_no_realizadas()
 {
-	var url="datos.php"
-	var pars='opcion=24'
+	var url="datos.php";
+	var pars='opcion=24';
 		var myAjax = new Ajax.Request(url,
 			{
 				method: 'post',
 				parameters: pars,
 				onComplete: function gen(t)
 				{
-					 alert(t.responseText)
+					 alert(t.responseText);
 				}
 			});
-		 
+
 }
 /*
  * Cambia la visualizacion de la parrilla segun la fecha seleccionada
  */
 function cambia_fecha(fecha)
 {
+	var url = "";
 	switch($F('seccion'))
 	{
 		case "0":
-		var url="semana.php"
-		break
+			url="semana.php";
+		break;
 		case "1":
-		var url="interna.php"
-		break
+			url="interna.php";
+		break;
 	}
-	
-	if(fecha == undefined)
-		var pars="fecha="+$F('semana')
-	else
-		var pars="fecha="+fecha
-	
+	var pars = "fecha=" + fecha;
+	if(fecha === undefined) {
+		pars = "fecha=" + $F('semana');
+	}
+
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('vista').innerHTML = t.responseText
-				
+			onComplete:
+			function gen(t)
+			{
+				$('vista').innerHTML = t.responseText;
+
 					Calendar.setup({
 					inputField     :    'semana',      // id of the input field
 					ifFormat       :    '%d-%m-%Y',       // format of the input field
@@ -425,7 +439,7 @@ function cambia_fecha(fecha)
 					button         :    'f_trigger_semana',   // trigger for the calendar (button ID)
 					singleClick    :    true,           // double-click mode
 					step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-					})
+					});
 			}
 		});
 	return false;
@@ -436,17 +450,17 @@ function cambia_fecha(fecha)
  */
 function formulario_interna(hora,dia)
 {
-	var url ='datos.php'
-	var pars="opcion=10&dia="+dia+"&hora="+hora
+	var url ='datos.php';
+	var pars="opcion=10&dia="+dia+"&hora="+hora;
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				ver_formulario_agenda()
-				$('formulario_agenda').innerHTML = t.responseText
+			onComplete:
+			function gen(t)
+			{
+				ver_formulario_agenda();
+				$('formulario_agenda').innerHTML = t.responseText;
 			}
 		});
 }
@@ -455,8 +469,8 @@ function formulario_interna(hora,dia)
  */
 function previa_color()
 {
-	var estilo=$('previa_color').style
-	estilo.background=$('color').value
+	var estilo=$('previa_color').style;
+	estilo.background=$('color').value;
 }
 
 /*
@@ -464,16 +478,16 @@ function previa_color()
  */
 function previa_tipo()
 {
-	var url='datos.php'
-	var pars="opcion=11&repetir="+$('repetir').value
+	var url='datos.php';
+	var pars="opcion=11&repetir="+$('repetir').value;
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('personalizar').innerHTML = t.responseText
+			onComplete:
+			function gen(t)
+			{
+				$('personalizar').innerHTML = t.responseText;
 			}
 		});
 }
@@ -483,19 +497,19 @@ function previa_tipo()
  */
 function agrega_tarea()
 {
-	var url = "datos.php"
-	var formulario = $('tareas')
-	var pars="opcion=12&"+Form.serialize(formulario)
+	var url = "datos.php";
+	var formulario = $('tareas');
+	var pars="opcion=12&"+Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
 				//alert("cambio")
-				cambia_fecha()
+				cambia_fecha();
 			}
 		});
 }
@@ -504,17 +518,17 @@ function agrega_tarea()
  */
 function edita_tarea(tarea,hora,dia)
 {
-	var url ='datos.php'
-	var pars="opcion=10&tarea="+tarea+"&dia="+dia+"&hora="+hora
+	var url ='datos.php';
+	var pars="opcion=10&tarea="+tarea+"&dia="+dia+"&hora="+hora;
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				ver_formulario_agenda()
-				$('formulario_agenda').innerHTML = t.responseText
+			onComplete:
+			function gen(t)
+			{
+				ver_formulario_agenda();
+				$('formulario_agenda').innerHTML = t.responseText;
 			}
 		});
 }
@@ -523,34 +537,35 @@ function edita_tarea(tarea,hora,dia)
  */
 function actualiza_tarea(tarea)
 {
-	var url = "datos.php"
-	var formulario = $('tareas')
-	var pars="opcion=17&tarea="+tarea+"&"+Form.serialize(formulario)
+	var url = "datos.php";
+	var formulario = $('tareas');
+	var pars="opcion=17&tarea="+tarea+"&"+Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_fecha()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_fecha();
 			}
 		});
 }
 function actualiza_esta_tarea()
 {
-	var url="datos.php"
-	var pars="opcion=23&tarea="+$F('id_tarea')+"&dia="+$F('dia_marc')+"&hora="+$F('hora_marc')+"&color="+$('color').value
+	var url="datos.php";
+	var pars="opcion=23&tarea="+$F('id_tarea')+"&dia="+$F('dia_marc')+"&hora="+
+		$F('hora_marc')+"&color="+$('color').value;
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_fecha()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_fecha();
 			}
 		});
 }
@@ -559,18 +574,18 @@ function actualiza_esta_tarea()
  */
 function borra_tarea_interna(tarea)
 {
-	var url = "datos.php"
-	var pars="opcion=18&tarea="+tarea+"&fecha="+$F('semana')
+	var url = "datos.php";
+	var pars="opcion=18&tarea="+tarea+"&fecha="+$F('semana');
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_fecha()
-				cerrar_formulario_agenda()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_fecha();
+				cerrar_formulario_agenda();
 			}
 		});
 }
@@ -579,18 +594,18 @@ function borra_tarea_interna(tarea)
  */
 function agregar_tarea_pendiente()
 {
-	var url = "datos.php"
-	var formulario = $('tareas_pendientes')
-	var pars="opcion=13&"+Form.serialize(formulario)
+	var url = "datos.php";
+	var formulario = $('tareas_pendientes');
+	var pars="opcion=13&"+Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_vista()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_vista();
 			}
 		});
 }
@@ -600,15 +615,15 @@ function agregar_tarea_pendiente()
  */
 function edita_tarea_pendiente(tarea)
 {
-	var url = "tareas.php"
-	var pars="tarea=" + tarea
+	var url = "tareas.php";
+	var pars="tarea=" + tarea;
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
 		onComplete: function gen(t)
 		{
-			$('vista').innerHTML = t.responseText
+			$('vista').innerHTML = t.responseText;
 			Calendar.setup({
 					inputField     :    'semana',      // id of the input field
 					ifFormat       :    '%d-%m-%Y',       // format of the input field
@@ -616,11 +631,11 @@ function edita_tarea_pendiente(tarea)
 					button         :    'f_trigger_semana',   // trigger for the calendar (button ID)
 					singleClick    :    true,           // double-click mode
 					step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-					})
+					});
 		}
-		
+
 	});
-	
+
 }
 
 /*
@@ -628,18 +643,18 @@ function edita_tarea_pendiente(tarea)
  */
 function actualiza_tarea_pendiente(tarea)
 {
-	var url = "datos.php"
-	var formulario = $('tareas_pendientes')
-	var pars="opcion=14&tarea="+ tarea + "&" + Form.serialize(formulario)
+	var url = "datos.php";
+	var formulario = $('tareas_pendientes');
+	var pars="opcion=14&tarea="+ tarea + "&" + Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_vista()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_vista();
 			}
 		});
 }
@@ -649,18 +664,18 @@ function actualiza_tarea_pendiente(tarea)
  */
 function cambia_estado_tarea(tarea)
 {
-	var url = "datos.php"
-	var pars="opcion=15&tarea="+ tarea + "&estado=" + $F('tarea_'+tarea)
+	var url = "datos.php";
+	var pars="opcion=15&tarea="+ tarea + "&estado=" + $F('tarea_'+tarea);
 	var myAjax = new Ajax.Request(url,
 	{
 		method: 'post',
 		parameters: pars,
-		onComplete:function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_vista()
+		onComplete:function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_vista();
 			}
-		
+
 	});
 }
 
@@ -669,19 +684,19 @@ function cambia_estado_tarea(tarea)
  */
 function borra_tarea(tarea)
 {
-	var t=confirm(String.fromCharCode(191)+"Borrar Tarea?")
-	if (t == true) {
-		var url = "datos.php"
-		var pars = "opcion=16&tarea=" + tarea
+	var t=confirm(String.fromCharCode(191)+"Borrar Tarea?");
+	if (t === true) {
+		var url = "datos.php";
+		var pars = "opcion=16&tarea=" + tarea;
 		var myAjax = new Ajax.Request(url, {
 			method: 'post',
 			parameters: pars,
-			onComplete:function gen(t) 
-			{	 
-				$('estado_tarea').innerHTML = t.responseText
-				cambia_vista()
+			onComplete:function gen(t)
+			{
+				$('estado_tarea').innerHTML = t.responseText;
+				cambia_vista();
 			}
-			
+
 		});
 	}
 }
@@ -691,52 +706,51 @@ function borra_tarea(tarea)
  */
 function filtro_asignado()
 {
-	var valor= $('filtro_asignado').value
-	var url = "datos.php"
-	var pars = "opcion=19&asignada=" + valor
+	var valor= $('filtro_asignado').value;
+	var url = "datos.php";
+	var pars = "opcion=19&asignada=" + valor;
 	var myAjax = new Ajax.Request(url, {
 			method: 'post',
 			parameters: pars,
-			onComplete:function gen(t) 
-			{	 
-				$('lista_tareas_pendientes').innerHTML = t.responseText
-				
+			onComplete:function gen(t)
+			{
+				$('lista_tareas_pendientes').innerHTML = t.responseText;
+
 			}
-			
+
 		});
-	
+
 }
 function filtro_prioridad()
 {
-	var valor= $('filtro_prioridad').value
-	var url = "datos.php"
-	var pars = "opcion=19&prioridad=" + valor
+	var valor= $('filtro_prioridad').value;
+	var url = "datos.php";
+	var pars = "opcion=19&prioridad=" + valor;
 	var myAjax = new Ajax.Request(url, {
 			method: 'post',
 			parameters: pars,
-			onComplete:function gen(t) 
-			{	 
-				$('lista_tareas_pendientes').innerHTML = t.responseText
-				
+			onComplete:function gen(t)
+			{
+				$('lista_tareas_pendientes').innerHTML = t.responseText;
+
 			}
-			
+
 		});
 }
 
 function filtro_vencimiento()
 {
-	var valor= $('filtro_vencimiento').value
-	var url = "datos.php"
-	var pars = "opcion=19&vencimiento=" + valor
+	var valor= $('filtro_vencimiento').value;
+	var url = "datos.php";
+	var pars = "opcion=19&vencimiento=" + valor;
 	var myAjax = new Ajax.Request(url, {
 			method: 'post',
 			parameters: pars,
-			onComplete:function gen(t) 
-			{	 
-				$('lista_tareas_pendientes').innerHTML = t.responseText
-				
+			onComplete:function gen(t)
+			{
+				$('lista_tareas_pendientes').innerHTML = t.responseText;
 			}
-			
+
 		});
 }
 /*
@@ -744,28 +758,28 @@ function filtro_vencimiento()
  */
 function agrega_nota()
 {
-	var url = "datos.php"
-	var formulario = $('notas')
-	var pars="opcion=20&" + Form.serialize(formulario)
+	var url = "datos.php";
+	var formulario = $('notas');
+	var pars="opcion=20&" + Form.serialize(formulario);
 	var myAjax = new Ajax.Request(url,
 		{
 			method: 'post',
 			parameters: pars,
-			onComplete: 
-			function gen(t) 
-			{	 
-				$('estado_nota').innerHTML = t.responseText
-				cambia_vista()
+			onComplete:
+			function gen(t)
+			{
+				$('estado_nota').innerHTML = t.responseText;
+				cambia_vista();
 			}
 		});
 }
 /*
- * Edita la nota 
+ * Edita la nota
  */
 function editar_nota(nota)
 {
-	var url="notas.php"
-	var pars="nota="+nota
+	var url="notas.php";
+	var pars="nota="+nota;
 	var myAjax = new Ajax.Request(url,
 	{
 		method:'post',
@@ -773,7 +787,7 @@ function editar_nota(nota)
 		onComplete:
 		function gen(t)
 		{
-			$('vista').innerHTML = t.responseText
+			$('vista').innerHTML = t.responseText;
 		}
 	});
 }
@@ -782,9 +796,9 @@ function editar_nota(nota)
  */
 function actualiza_nota(id)
 {
-	var url="datos.php"
-	var pars="opcion=21&id="+id+"&"+Form.serialize($('notas'))
-	
+	var url="datos.php";
+	var pars="opcion=21&id="+id+"&"+Form.serialize($('notas'));
+
 	var myAjax = new Ajax.Request(url,
 	{
 		method:'post',
@@ -792,8 +806,8 @@ function actualiza_nota(id)
 		onComplete:
 		function gen(t)
 		{
-			$('estado_nota').innerHTML = t.responseText
-			cambia_vista()
+			$('estado_nota').innerHTML = t.responseText;
+			cambia_vista();
 		}
 	});
 }
@@ -802,19 +816,19 @@ function actualiza_nota(id)
  */
 function borra_nota(nota)
 {
-	var t=confirm(String.fromCharCode(191)+"Borrar Nota?")
-	if (t == true) {
-		var url = "datos.php"
-		var pars = "opcion=22&nota=" + nota
+	var t=confirm(String.fromCharCode(191)+"Borrar Nota?");
+	if (t === true) {
+		var url = "datos.php";
+		var pars = "opcion=22&nota=" + nota;
 		var myAjax = new Ajax.Request(url, {
 			method: 'post',
 			parameters: pars,
-			onComplete:function gen(t) 
-			{	 
-				$('estado_nota').innerHTML = t.responseText
-				cambia_vista()
+			onComplete:function gen(t)
+			{
+				$('estado_nota').innerHTML = t.responseText;
+				cambia_vista();
 			}
-			
+
 		});
 	}
 }
