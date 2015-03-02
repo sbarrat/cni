@@ -1,6 +1,55 @@
-// JavaScript Document
-//Javascript principal remasterizado
-//VALIDACION DE USUARIO
+/**
+ * Almacena el setTimeout;
+ */
+var timeOut;
+
+/**
+ * Funcion de consulta Ajax Generica
+ * @param url
+ * @param pars
+ * @param div
+ * @param callback Funcion a lanzar
+ */
+function ajaxPostRequest(url, pars, div, callback)
+{
+    var myAjax = new Ajax.Request(
+        url,
+        {
+            method: 'post',
+            parameters: pars,
+            onComplete: function gen(t)
+            {
+                $(div).innerHTML = t.responseText;
+                if (typeof callback === 'function') {
+                    callback();
+                }
+            }
+        }
+    );
+    return false;
+}
+/**
+ * Funcion generica para mostrar la ventana
+ */
+function showWindow(div)
+{
+    var estilo = $(div).style;
+    estilo.visibility = "visible";
+    estilo.display = "block";
+}
+/**
+ * Funcion generica para ocultar la ventana
+ */
+function hideWindow(div)
+{
+    var estilo = $(div).style;
+    estilo.visibility = "hidden";
+    estilo.display = "none";
+}
+/**
+ * Valida al usuario
+ * @returns {boolean}
+ */
 function validar()
 {
     var usuario = $F('usuario');
@@ -14,30 +63,29 @@ function validar()
         onComplete: function gen(t)
         {
             $('cuerpo').innerHTML = t.responseText;
-
         },
-        onCreate: $('cuerpo').innerHTML = "<center><p class='validacion'>Validando Usuario<br/><img src='imagenes/loader.gif' alt='Validando Usuario' /></p></center>"
+        onCreate: function gen(t)
+        {
+            $('cuerpo').innerHTML = '<center>' +
+            '<p class="validacion">Validando Usuario<br/>' +
+            '<img src="imagenes/loader.gif" alt="Validando Usuario" /></p></center>';
+        }
     });
     return false;
 }
-//***********************************************************************************************/
+/**
+ * Carga el menu
+ * @param codigo
+ */
 function menu(codigo)
 {
     var url = "inc/generator.php";
     var pars = "opcion=0&codigo="+codigo;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('principal').innerHTML = t.responseText;
-
-            }
-
-    });
+    ajaxPostRequest(url, pars, 'principal');
 }
-//***********************************************************************************************/
+/**
+ * Busca
+ */
 function busca()
 {
     var estilo = $('resultados').style;
@@ -48,457 +96,299 @@ function busca()
     var tabla = $F('tabla');
     var pars = "opcion=1&texto="+texto+"&tabla="+tabla;
     pars = encodeURI(pars);
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('resultados').innerHTML = t.responseText
-            }
-     });
+    ajaxPostRequest(url, pars, 'resultados');
 }
-//***********************************************************************************************/
+/**
+ * Cierra el formulario de busqueda
+ * @deprecated Sustituir en origen por hideWindow(nombre div)
+ */
 function cierra_frm_busca()
 {
-    var estilo = $('resultados').style;
-    estilo.visibility = "hidden";
-    estilo.display = "none";
+    hideWindow('resultados');
 }
+/**
+ * Cierra el formulario
+ * @deprecated Sustituir en origen por hideWindow(nombre div)
+ */
 function cierra_el_formulario()
 {
-    var estilo = $('formulario').style;
-    estilo.visibility = "hidden";
-    estilo.display = "none";
+    hideWindow('formulario');
 }
+/**
+ * Muestra el formulario
+ * @deprecated Sustitur en origen por showWindow(nombre div)
+ */
 function muestra_el_formulario()
 {
-    var estilo = $('formulario').style;
-    estilo.visibility = "visible";
-    estilo.display = "block";
+    showWindow('formulario');
 }
-//***********************************************************************************************/
-//muestra los registros seleccionados
+/**
+ * Muestra los resgistros seleccionados
+ * @param registro
+ */
 function muestra(registro) //solo vale para las raices
 {
     var url = "inc/generator.php";
-
     var tabla = $F('tabla');
-    //onerror=upss(registro)
     var pars = "opcion=2&registro="+registro+"&tabla="+tabla;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('formulario').innerHTML = t.responseText;
-                campos_fecha(tabla);
-                cierra_frm_busca();
-                muestra_el_formulario();
-            }
+    ajaxPostRequest(url, tabla, pars, function() {
+        campos_fecha(tabla);
+        hideWindow('resultados');
+        showWindow('formulario');
     });
 }
-function upss(registro)
-{
-    alert("Debes seleccionar una categoria");
-}
-//***********************************************************************************************/
+
+/**
+ * Muestra el submenu
+ * @param codigo
+ */
 function submenu(codigo)
 {
-
     var url = "inc/generator.php";
     var registro = $F('idemp');
     var pars = "opcion=3&codigo="+codigo+"&registro="+registro;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('formulario').innerHTML = t.responseText;
-                //parte de las fechas
-                campos_fecha($F('nombre_tabla'));
-                //editor de textos
-
-            }
-
+    ajaxPostRequest(url, pars, 'formulario', function() {
+       campos_fecha($F('nombre_tabla'));
     });
 }
-//***********************************************************************************************/
-//funcion generica para los campos de fecha
+
+/**
+ * Funciona generica para los campos de fecha
+ * @param tabla
+ * @deprecated cambiar por html nativo
+ */
 function campos_fecha(tabla)
 {
-    switch(tabla)
-                {
-                case "facturacion":
-                    {
-                        Calendar.setup({
-                    inputField     :    'finicio',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_finicio',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                        Calendar.setup({
-                    inputField     :    'duracion',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_duracion',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                        Calendar.setup({
-                    inputField     :    'renovacion',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_renovacion',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-
-                    }break;
-                    case "pcentral":
-                    {
-                        Calendar.setup({
-                    inputField     :    'cumple',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_cumple',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                    }break;
-                    case "pempresa":
-                    {
-                        Calendar.setup({
-                    inputField     :    'cumple',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_cumple',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                    }break;
-                    case "z_facturacion":
-                    {
-                        Calendar.setup({
-                    inputField     :    'finicio',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_finicio',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-
-                        Calendar.setup({
-                    inputField     :    'renovacion',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_renovacion',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                    }break;
-                    case "empleados":
-                    {
-                        Calendar.setup({
-                    inputField     :    'fnac',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_fnac',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-
-                        Calendar.setup({
-                    inputField     :    'fcon',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_fcon',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                    }break;
-                    case "entradas_salidas":
-                    {
-                        Calendar.setup({
-                    inputField     :    'entrada',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_entrada',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-
-                        Calendar.setup({
-                    inputField     :    'salida',      // id of the input field
-                    ifFormat       :    '%d-%m-%Y',       // format of the input field
-                    showsTime      :    true,            // will display a time selector
-                    button         :    'f_trigger_salida',   // trigger for the calendar (button ID)
-                    singleClick    :    false,           // double-click mode
-                    step           :    1                // show all years in drop-down boxes (instead of every other year as default)
-                    });
-                    }break;
-                }
-                //editor()
+    var inputFields = [];
+    switch(tabla) {
+        case "facturacion":
+            inputFields = ['finicio', 'duracion', 'renovacion'];
+            break;
+        case "pcentral":
+        case "pempresa":
+            inputFields = ['cumple'];
+            break;
+        case "z_facturacion":
+            inputFields = ['finicio', 'renovacion'];
+            break;
+        case "empleados":
+            inputFields = ['fnac', 'fcon'];
+            break;
+        case "entradas_salidas":
+            inputFields = ['entrada', 'salida'];
+            break;
+    }
+    for (var i = 0; i < inputFields.length; i++) {
+        Calendar.setup({
+            inputField: inputFields[i],      // id of the input field
+            ifFormat: '%d-%m-%Y',       // format of the input field
+            showsTime: true,            // will display a time selector
+            button: 'f_trigger_' + inputFields[i],   // trigger for the calendar (button ID)
+            singleClick: false,           // double-click mode
+            step: 1
+        });
+    }
 }
-//***********************************************************************************************/
-//funcion nueva de actualizacion
+/**
+ * Funcion nueva de actualización
+ */
 function actualiza_registro()
 {
-        muestra_debug();
-        var url = "inc/generator.php";
-        var registro = $F('numero_registro');
-        var formulario = $('formulario_actualizacion');
-        var pars = "opcion=4&"+Form.serialize(formulario);
-        var myAjax = new Ajax.Request(url,
-                     {
-                          method:'post',
-                          parameters:pars,
-                          onComplete:function gen(t)
-                          {
-                                $('debug').innerHTML = t.responseText;
-                                muestra(registro);
-                                var p=setTimeout("cierra_debug()",2000);
-
-                          }
-                      });
-
+    muestra_debug();
+    var url = "inc/generator.php";
+    var registro = $F('numero_registro');
+    var formulario = $('formulario_actualizacion');
+    var pars = "opcion=4&"+Form.serialize(formulario);
+    ajaxPostRequest(url, pars, 'debug', function() {
+        muestra(registro);
+        timeOut = setTimeout(hideWindow('debug'), 2000);
+    });
 }
-//***********************************************************************************************/
+/**
+ * Muestra la ventana de depuracion
+ * @deprecated
+ */
 function muestra_debug()
 {
     $('debug').innerHTML = "";
-    var estilo = $('debug').style;
-    estilo.visibility = "visible";
-    estilo.display = "block";
+    showWindow('debug');
 }
-//***********************************************************************************************/
+/**
+ * Cierra la ventana de depuracion
+ * @deprecated
+ */
 function cierra_debug()
 {
-    var estilo = $('debug').style;
-    estilo.visibility = "hidden";
-    estilo.display = "none";
+    hideWindow('debug');
 }
-//EDITOR DE TEXTOS***************************************/
-function editor()
-{
 
-    var allTextAreas = document.getElementsByTagName("textarea");
-    for (var i=0; i < allTextAreas.length; i++) {
-    var oFCKeditor = new FCKeditor( allTextAreas[i].name ) ;
-    oFCKeditor.BasePath = "FCKeditor/" ;
-    oFCKeditor.ToolbarSet = 'Default' ;
-    oFCKeditor.ReplaceTextarea() ;
-    }
-}
-//***********************************************************************************************/
 //generacion de un nuevo registro
-function nuevo(codigo) //generacion del formulario de uno nuevo
+/**
+ * Generacion de un nuevo registro
+ * @param codigo
+ */
+function nuevo(codigo)
 {
-
     var tabla = $F('tabla');
     var url = "inc/generator.php";
     var pars = "opcion=5&tabla="+codigo;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('formulario').innerHTML = t.responseText;
-                //vamos a mirar aqui casos de tabla pe en empleados
-                campos_fecha(tabla);
-                muestra_el_formulario();
-            }
+    ajaxPostRequest(url, pars, 'formulario', function() {
+        campos_fecha(tabla);
+        showWindow('formulario');
     });
 }
-//***********************************************************************************************/
+/**
+ * Agrega un nuevo registro
+ */
 function agrega_registro()
 {
     var url = "inc/generator.php";
     var opcion = $F('opcion');
     var formulario = $('formulario_alta');
+    var opciones = [2, 3, 4, 5, 6, 8, 11];
     muestra_debug();
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: "opcion=6&"+ Form.serialize(formulario),
-            onComplete: function gen(t)
-            {
-                busca();
-                $('debug').innerHTML = t.responseText;
-                var p=setTimeout("cierra_debug()",2000);
-                //en principo el submenu solo es para clientes y proveedores //PEGOTEE
-                if(opcion == 2 || opcion == 3 || opcion == 4 || opcion == 5 || opcion == 6 || opcion == 8 || opcion == 11)
+    ajaxPostRequest(url, "opcion=6&" + Form.serialize(formulario), 'debug', function() {
+        busca();
+        timeOut = setTimeout(hideWindow('debug'), 2000);
+        for (var i = 0; i < opciones.length; i++) {
+            if (opcion === opciones[i]) {
                 submenu(opcion);
             }
-
+        }
     });
 }
-//***********************************************************************************************/
+/**
+ * Borrado del registro
+ * @param registro
+ */
 function borrar_registro(registro)
 {
-    var t=confirm("�Borrar Registro?");
-    if (t == true)
-    {
-    //var codigo = $F('codigo')
-    var tabla = $F('nombre_tabla');
-    var opcion = $F('opcion');
-    var url = "inc/generator.php";
-    var pars = "opcion=7&tabla="+tabla+"&registro="+registro;
-    pars = encodeURI(pars);
-    muestra_debug();
-    var myAjax = new Ajax.Request(url,
-                  {
-                      method:'post',
-                      parameters:pars,
-                      onComplete: function gen(t)
-                        {
-                            busca();
-                            $('debug').innerHTML = t.responseText;
-                            var p=setTimeout("cierra_debug()",2000);
-                            //$('formulario').innerHTML = ""
-                            if(opcion != 0)
-                            submenu(opcion);
-                            else
-                            nuevo($F('nuevo'));
-                        }
-                  });
+    if (confirm("�Borrar Registro?")) {
+        //var codigo = $F('codigo')
+        var tabla = $F('nombre_tabla');
+        var opcion = $F('opcion');
+        var url = "inc/generator.php";
+        var pars = "opcion=7&tabla="+tabla+"&registro="+registro;
+        pars = encodeURI(pars);
+        muestra_debug();
+        ajaxPostRequest(url, pars, 'debug', function() {
+            busca();
+            timeOut = setTimeout(hideWindow('debug'), 2000);
+            if (opcion !== 0) {
+                submenu(opcion);
+            } else {
+                nuevo($F('nuevo'));
+            }
+        });
     }
 }
-//***********************************************************************************************/
+/**
+ * Muestra el registro seleccionado
+ * @param registro
+ */
 function muestra_registro(registro)
 {
-
     var codigo = $F('codigo');
     var tabla=$F('nombre_tabla');
     var opcion = $F('opcion');
     var url = "inc/generator.php";
     var pars = "opcion=3&codigo="+codigo+"&registro="+registro+"&tabla="+tabla+"&marcado=1";
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('formulario').innerHTML = t.responseText;
-                campos_fecha(tabla);
-            }
+    ajaxPostRequest(url, pars, 'formulario', function() {
+        campos_fecha(tabla);
     });
 }
 //***********************************************************************************************/
 //FACTURACION SERVICIOS FIJOS
 //***********************************************************************************************/
-//GENERAMOS EL FORMULARIO PARA AGREGAR SERVICIOS FIJOS QUE SE COBRARAN MENSUALMENTE
+
+/**
+ * Formulario de servicios fijos
+ * @param cliente
+ */
 function frm_srv_fijo(cliente)
 {
     var url = "inc/generator.php";
     var pars = "opcion=8&cliente="+cliente;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('frm_srv_fijos').innerHTML = t.responseText;
-            }
-    });
+    ajaxPostRequest(url, pars, 'frm_srv_fijos');
 }
+/**
+ * Muestra el servicio fijo
+ * @param id
+ */
 function muestra_srv_fijo(id)
 {
-
     var url = "inc/generator.php";
     var pars = "opcion=8&id="+id;
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('frm_srv_fijos').innerHTML = t.responseText;
-            }
-    });
+    ajaxPostRequest(url, pars, 'frm_srv_fijos');
 }
-//Segun el servicio que cargamos se carga su importe y su iva al lado
+/**
+ * Segun el servicio que cargamos se carga su importe y su iva al lado
+ */
 function cambia_los_otros()
 {
     var url ="inc/generator.php";
     var servicio = $('servicio').value;
     var pars = "opcion=9&servicio="+servicio;
-    var myAjax = new Ajax.Request(url,
-     {
+    var myAjax = new Ajax.Request(
+        url,
+        {
             method:'post',
             parameters: pars,
             onComplete: function gen(t)
             {
-                var valores = new String(t.responseText);
+                var valores = t.responseText;
                 var lista  = valores.split(":");
                 $('importe').value = lista[0];
                 $('iva').value = lista[1];
             }
-    });
+        }
+    );
 }
-
+/**
+ * Agrega un servicio Fijo
+ */
 function agrega_srv_fijos()
 {
     var url ="inc/generator.php";
     var cliente = $F('id_Cliente');
     var pars = "opcion=10&"+ Form.serialize($('frm_srv_fijos'));
     muestra_debug();
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('debug').innerHTML = t.responseText;
-                var p=setTimeout("cierra_debug()",2000);
-                submenu(2);
-                frm_srv_fijo(cliente);
-            }
+    ajaxPostRequest(url, pars, 'debug', function() {
+        timeOut = setTimeout(hideWindow('debug'), 2000);
+        submenu(2);
+        frm_srv_fijo(cliente);
     });
 }
-
+/**
+ * Borra un servicio fijo
+ * @param id
+ */
 function borra_srv_fijo(id)
 {
     var url ="inc/generator.php";
     var pars = "opcion=11&id="+id;
     muestra_debug();
-    var myAjax = new Ajax.Request(url,
-        {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('debug').innerHTML = t.responseText;
-                var p=setTimeout("cierra_debug()",2000);
-                submenu(2);
-            }
-        });
+    ajaxPostRequest(url, pars, 'debug', function() {
+        timeOut = setTimeout(hideWindow('debug'), 2000);
+        submenu(2);
+    });
 }
-
+/**
+ * Actualiza un servicio fijo
+ */
 function actualiza_srv_fijos()
 {
     var url ="inc/generator.php";
     var cliente = $F('id_Cliente');
     var pars = "opcion=12&"+ Form.serialize($('frm_srv_fijos'));
     muestra_debug();
-    var myAjax = new Ajax.Request(url,
-     {
-            method:'post',
-            parameters: pars,
-            onComplete: function gen(t)
-            {
-                $('debug').innerHTML = t.responseText;
-                var p=setTimeout("cierra_debug()",2000);
-                submenu(2);
-                frm_srv_fijo(cliente);
-            }
+    ajaxPostRequest(url, pars, 'debug', function() {
+        timeOut = setTimeout(hideWindow('debug'), 2000);
+        submenu(2);
+        frm_srv_fijo(cliente);
     });
 }
+// FIXME: Continuar desde aqui
 //***********************************************************************************************/
 //PARTE DE LAS COPIAS DE SEGURIDAD
 //***********************************************************************************************/
@@ -1036,30 +926,24 @@ function borrar_telefono_asignado(telefono)
 }
 /*
  * Edicion de la descripcion del telefono libre
+ * @param telefono
  */
 function editar_telefono_asignado(telefono)
 {
     var url='inc/datos_gestion.php';
-    pars = 'opcion=16&telefono='+telefono;
-    var myAjax = new Ajax.Request(url,
-    {
-        method:'post',
-        parameters: pars,
-        onComplete:function gen(t)
-        {
-            $('edicion_'+telefono).innerHTML = t.responseText;
-        }
-    });
+    var pars = 'opcion=16&telefono='+telefono;
+    ajaxPostRequest(url, pars, 'edicion_' + telefono);
 }
-/*
+/**
  * Actualiza la descripcion del telefono libre
+ * @param telefono
  */
 function actualiza_descripcion_telefono(telefono)
 {
     var url='inc/datos_gestion.php';
     var descripcion = $F('descripcion_'+ telefono);
     var id = $F('identificador_'+ telefono);
-    pars = 'opcion=17&telefono='+telefono+'&descripcion='+descripcion+'&id='+id;
+    var pars = 'opcion=17&telefono='+telefono+'&descripcion='+descripcion+'&id='+id;
     console.log( pars );
     var myAjax = new Ajax.Request(url,
     {
