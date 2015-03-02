@@ -42,7 +42,7 @@ for ($i = 0; $i < $filas; $i++) :
                 &nbsp;+Info&nbsp;</span>";
                 $value = $cliente[$despacho];
         }
-        $txtDespacho. = "<input type='hidden' id='cliente_despacho_".$despacho."'
+        $txtDespacho .= "<input type='hidden' id='cliente_despacho_".$despacho."'
             value='".$value."' />";
         ?>
         <td width='16.66%' id='despacho_$despacho' valign='top'>

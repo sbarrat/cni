@@ -16,3 +16,4 @@ tmp/*
 /build
 build/*
 atlassian*
+.idea/*
