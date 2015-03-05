@@ -6,6 +6,7 @@ build_settings:
         - "entradas2/jpgraph"
 test:
     php_mess_detector:
+        path: "."
         rules:
             - "cleancode"
             - "codesize"
