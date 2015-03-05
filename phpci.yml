@@ -15,6 +15,7 @@ test:
             - "unusedcode"
         allowed_warnings: 0
     php_code_sniffer:
+        path: "."
         ignore:
             - "vendor"
             - "inc/ezpdf"
