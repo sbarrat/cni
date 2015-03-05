@@ -23,6 +23,5 @@ test:
         allowed_warnings: 0
     php_docblock_checker:
     php_cpd:
-    pdepend:
     php_loc:
     technical_debt:
