@@ -1,7 +1,7 @@
 <?php
 // FIXME: Reducir el peso del fichero
 // FIXME: Corregir los errores de estilo
-require_once '../inc/variables.php';
+require_once '../inc/autoload.php';
 /*
  * Chequeo de errores activado
  */
@@ -9,176 +9,170 @@ error_reporting(0);
 /*
  * Recoge la opcion y la manda a su destino
  */
-if (isset($_POST['opcion'])) {
-    switch ($_POST['opcion']) {
-        case 0:$respuesta=formulario_despacho($_POST);break;
-        case 1:$respuesta=cuca($_POST);break;
-        case 2:$respuesta=dame_nombre_cliente($_POST);break;
-        case 3:$respuesta=informacion_despacho($_POST);break;
-        case 4:$respuesta=guarda_despacho($_POST);break;
-        case 5:$respuesta=detalles_ocupacion($_POST);break;
-        case 6:$respuesta=editar_ocupacion($_POST);break;
-        case 7:$respuesta=actualiza_ocupacion($_POST);break;
-        case 8:$respuesta=borra_ocupacion($_POST);break;
-        case 9:$respuesta=guarda_obs($_POST);break;
-        case 10:$respuesta=formulario_agenda($_POST);break;
-        case 11:$respuesta=personalizacion($_POST);break;
-        case 12:$respuesta=agrega_tarea($_POST);break;
-        case 13:$respuesta=agregar_tarea_pendiente($_POST);break;
-        case 14:$respuesta=actualiza_tarea_pendiente($_POST);break;
-        case 15:$respuesta=cambia_estado_tarea($_POST);break;
-        case 16:$respuesta=borra_tarea($_POST);break;
-        case 17:$respuesta=actualiza_tarea($_POST);break;
-        case 18:$respuesta=borra_tarea_interna($_POST);break;
-        case 19:$respuesta=filtrado_tareas_pendientes($_POST);break;
-        case 20:$respuesta=agrega_nota($_POST);break;
-        case 21:$respuesta=actualiza_nota($_POST);break;
-        case 22:$respuesta=borra_nota($_POST);break;
-        case 23:$respuesta=actualiza_esta_tarea($_POST);break;
-        case 24:$respuesta=tareas_no_realizadas();break;
+$vars = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+$respuesta = "Error en los datos";
+if (isset($var['opcion'])) {
+    switch ($vars['opcion']) {
+        case 0:$respuesta = formularioDespacho($vars);
+            break;
+        case 1:$respuesta = listadoDeClientes($vars);
+            break;
+        case 2:$respuesta = dameNombreCliente($vars);
+            break;
+        case 3:$respuesta = informacion_despacho($vars);
+            break;
+        case 4:$respuesta = guarda_despacho($vars);
+            break;
+        case 5:$respuesta = detalles_ocupacion($vars);
+            break;
+        case 6:$respuesta = editar_ocupacion($vars);
+            break;
+        case 7:$respuesta = actualiza_ocupacion($vars);
+            break;
+        case 8:$respuesta = borra_ocupacion($vars);
+            break;
+        case 9:$respuesta = guarda_obs($vars);
+            break;
+        case 10:$respuesta = formulario_agenda($vars);
+            break;
+        case 11:$respuesta = personalizacion($vars);
+            break;
+        case 12:$respuesta = agrega_tarea($vars);
+            break;
+        case 13:$respuesta = agregar_tarea_pendiente($vars);
+            break;
+        case 14:$respuesta = actualiza_tarea_pendiente($vars);
+            break;
+        case 15:$respuesta = cambia_estado_tarea($vars);
+            break;
+        case 16:$respuesta = borra_tarea($vars);
+            break;
+        case 17:$respuesta = actualiza_tarea($vars);
+            break;
+        case 18:$respuesta = borra_tarea_interna($vars);
+            break;
+        case 19:$respuesta = filtrado_tareas_pendientes($vars);
+            break;
+        case 20:$respuesta = agrega_nota($vars);
+            break;
+        case 21:$respuesta = actualiza_nota($vars);
+            break;
+        case 22:$respuesta = borra_nota($vars);
+            break;
+        case 23:$respuesta = actualiza_esta_tarea($vars);
+            break;
+        case 24:$respuesta = tareas_no_realizadas();
+            break;
     }
-    echo $respuesta;
 }
-else
-    echo "Error en los datos";
+echo $respuesta;
 
-/*
+/**
  * Formulario general de los despachos
+ * @param $vars
+ * @return string
  */
-function formulario_despacho($vars)
+function formularioDespacho($vars)
 {
-    global $con;
-    if ( isset( $vars['cliente'] ) ) {
-        $sql = "Select Nombre from clientes where id like ".$vars['cliente'];
-        $consulta = mysql_query($sql,$con);
-        if ( mysql_numrows($consulta)!=0 ) {
-            $resultado = mysql_fetch_array($consulta);
-            $cliente = $resultado[0];
+    $html = new Html();
+    $clientes = new Clientes();
+    $cliente = "";
+    $total = "";
+    $parcial = "checked='checked'";
+    $dias = array('l', 'm', 'x', 'j', 'v');
+    if (isset($vars['cliente'])) {
+        $resultado = $clientes->nombreClientePorId($vars['cliente']);
+        if (count($resultado) == 1) {
+            $cliente = $resultado[0]['Nombre'];
         }
-        if ( $vars['ocupacion']=='total') {
-            $parcial="";
-            $total ="checked='checked'";
-        } else {
-            $parcial= "checked='checked'";
-            $total = "";
-        }
-    } else {
-        if ( $vars['otro']!="" ) {
-            $cliente = "";
-            if($vars['ocupacion']=='total') {
-                $parcial="";
-                $total ="checked='checked'";
-            } else {
-                $parcial= "checked='checked'";
-                $total = "";
-            }
-        } else {
-            $cliente = "";
-            $parcial="checked='checked'";
-            $total="";
-        }
+    }
+    if ($vars['ocupacion'] == 'total') {
+        $parcial = "";
+        $total = "checked='checked'";
     }
     //Comprobacion del tipo de cliente y sus datos
 
-    $cadena ="<div class='boton_cerrar' onclick='cerrar_formulario_agenda()'>
-    </div>";
-    if ( isset($vars['tipo']) ) {
-        $cadena .= "<form name='form_despachos' id='form_despachos'
-        method='post' action='' onsubmit='actualiza_ocupacion(); return false'>
-        <input type='hidden' id='registro' name='registro'
-        value='".$vars['registro']."'/>";
-        $id_cliente=$vars['cliente'];
-    } else {
-        $cadena .= "<form name='form_despachos' id='form_despachos'
-        method='post' action='' onsubmit='guarda_despacho(); return false'>";
-        $id_cliente="";}
-    if ( $vars['despacho'] == 23 ) {
-        $muestra = "Sala de Juntas";
-    } else {
-        $muestra = "Despacho ".$vars['despacho'];
+    $onSubmit = 'guarda_despacho(); return false';
+    $hidden = '';
+    $idCliente = '';
+    $finc = "00-00-0000";
+    $ffin = "00-00-0000";
+    $hinc = "00:00";
+    $hfin = "00:00";
+    $btnName = 'Aceptar';
+    if (isset($vars['tipo'])) {
+        $onSubmit = 'actualiza_ocupacion(); return false';
+        $hidden = "<input type = 'hidden' id = 'registro' name = 'registro'
+            value = '" . $vars['registro'] . "' />";
+        $idCliente = $vars['cliente'];
+        $finc = $html->covertDate($vars['finc']);
+        $ffin = $html->covertDate($vars['ffin']);
+        $hinc = $vars['hinc'];
+        $hfin = $vars['hfin'];
+        $btnName = 'Actualizar';
     }
-    $cadena .="<div class='seccion'>$muestra<input type='hidden' name='despacho' id='despacho' readonly value='$vars[despacho]' /><input type='hidden' name='id_cliente' readonly id='id_cliente' value='$id_cliente'/></div><p/>";
-    $cadena .="Cliente:<input type='text' name='cliente' id='cliente' autocomplete='off' onkeyup='busca_cliente()' size='24%' value='$cliente' />
-    <div id='listado_clientes_agenda'></div>";
-    $cadena .="Otro:&nbsp;&nbsp;&nbsp;<input type='text' name='no_cliente' id='no_cliente' size='24%' value='$vars[otro]'/><p/>";
-    $cadena .="<input type='button' onclick='limpia_nombre_cliente()' value='Limpiar' /><p/>";
     //chequeo de parametros de fecha
-    if(isset($vars[tipo]))
-    {
-        $finc=cambiaf($vars[finc]);
-        $ffin=cambiaf($vars[ffin]);
-        $hinc=$vars[hinc];
-        $hfin=$vars[hfin];
+    if (isset($vars['dia'])) {
+        $finc = $vars['dia'];
+        $ffin = $vars['dia'];
     }
-    else
-    {
-        if(isset($_POST[dia])) {
-            $finc=$_POST[dia];
-            $ffin=$_POST[dia];
-        }
-        else
-        {
-            $finc="00-00-0000";
-            $ffin="00-00-0000";
-        }
-        $hinc="00:00";
-        $hfin="00:00";
-
+    $repeticiones = "";
+    foreach ($dias as $dia) {
+        $repeticiones .= strtoupper($dia) .
+            "<input type='checkbox' name='repe_" . $dia . "'
+            value='" . strtoupper($dia) . "'>";
     }
+    $this->btnName = $btnName;
+    $view->repeticiones = $repeticiones;
+    $view->finc = $finc;
+    $view->ffin = $ffin;
+    $view->hinc = $hinc;
+    $view->hfin = $hfin;
+    $view->cliente = $cliente;
+    $view->idCliente = $idCliente;
+    $view->vars = $vars;
+    $view->onSubmit = $onSubmit;
+    $view->hidden = $hidden;
 
-    $cadena .="<div class='seccion'>Fecha Entrada&nbsp;|&nbsp;Fecha Salida</div><br>
-    <center><input type='text' name='finc' id='finc' size='10' value='$finc'/>
-    <input type='button' class='calendario_agenda' id='trigger_finc' value='..'/>&nbsp;";
-
-    $cadena .="<input type='text' id='ffin' name='ffin' size='10' value='$ffin'/>
-    <input type='button' id='trigger_ffin' class='calendario_agenda' value='..'/></center><p/>";
-    /*Repeticiones semanales*/
-    $cadena.="Repetir todos los:<br>";
-    $cadena.="L<input type='checkbox' name='repe_l' value='L'>";
-    $cadena.="M<input type='checkbox' name='repe_m' value='M'>";
-    $cadena.="X<input type='checkbox' name='repe_x' value='X'>";
-    $cadena.="J<input type='checkbox' name='repe_j' value='J'>";
-    $cadena.="V<input type='checkbox' name='repe_v' value='V'>";
-    /*Fin repeticion*/
-    $cadena .="<div class='seccion'>&nbsp;Entrada (hh:mm)&nbsp;|&nbsp;Salida (hh:mm)</div><br>
-    <center><input type='text' name='hinc' size=5 value='$hinc'/>&nbsp;&nbsp;
-    <input type='text' name='hfin' size=5 value='$hfin'/>";
-    $cadena.="<br><div id='debug'></div>";
-    if(isset($vars[tipo]))
-        $cadena .="<p/><input type='submit' name='Actualizar' value='Actualizar' />&nbsp;&nbsp;&nbsp;";
-    else
-        $cadena .="<p/>&nbsp;<input type='submit' name='Aceptar' value='Aceptar' />&nbsp;&nbsp;&nbsp;";
-    $cadena .="<input type='button' name='Cancelar' onclick='cerrar_formulario_despacho()' value='Cancelar' /></center></form>";
-return $cadena;
+    return $view->render('agenda/formularioDespacho.phtml');
 }
 
-/*
- * FUNCION QUE MUESTA EL LISTADO DE CLIENTES EN EL BUSCADOR
+/**
+ * Funcion que muestra el listado de clientes en el buscador
+ * @param  array $vars parametros pasados
+ * @return string      listado en formato html
  */
-function cuca($vars)
+function listadoDeClientes($vars)
 {
-    global $con;
-    if($vars[texto] == "")
-
-        $muestra = "";
-    else
-    {
-        $vars[texto] = codifica($vars[texto]);
-        $sql = "Select * from `clientes` where (Nombre like '%$vars[texto]%' or Contacto like '%$vars[texto]%') and `Estado_de_cliente` like '-1' order by Nombre ";
-        $consulta = mysql_query($sql,$con);
-
-        while(true == ($resultado = mysql_fetch_array($consulta)))
-        {
-            $muestra .="<span class='lbl_clientes' onclick='marca(".$resultado[0].")' onmouseout='quitar_color(".$resultado[0].")' onmouseover='cambia_color(".$resultado[0].")'><p id='linea_".$resultado[0]."'>".traduce(eregi_replace($vars[texto],"<b><u>".strtoupper($vars[texto])."</u></b>",$resultado[1]))."</span></p>";
+    $html = '';
+    if (strlen($vars['texto']) > 0) {
+        $clientes = new Clientes();
+        $texto = '%'.$vars['texto'].'%';
+        $sql = "SELECT Id, Nombre from clientes
+            WHERE (Nombre LIKE ? or Contacto LIKE ?) AND
+            `Estado_de_cliente` LIKE '-1' ORDER BY Nombre";
+        $resultado = $clientes->consulta($sql, $texto);
+        foreach ($resultado as $var) {
+            $nombreCliente = preg_replace(
+                '/'.$vars['texto'].'/',
+                '<strong><u>'.strtoupper($vars['texto']).'</u></strong>',
+                $var['Nombre']
+            );
+            $html .= "
+            <span class='lbl_clientes' onclick='marca(".$var['Id'].")'
+             onmouseout='quitar_color(".$var['Id'].")'
+             onmouseover='cambia_color(".$var[0].")'>
+                <p id='linea_".$var[0]."'>". $nombreCliente ."</span></p>";
         }
     }
-    return $muestra;
+    return $html;
 }
 
 /*
  * DEVUELVE EL NOMBRE DEL CLIENTE
+ * @deprecated
  */
-function dame_nombre_cliente($vars)
+function dameNombreCliente($vars)
 {
     global $con;
     $sql = "Select * from `clientes` where id like $vars[cliente] ";
@@ -194,6 +188,7 @@ function dame_nombre_cliente($vars)
 
 /*
  * Cambio de formato de fecha, en ambos sentidos
+ * @deprecated
  */
 function cambiaf($stamp)
 {
@@ -204,6 +199,7 @@ function cambiaf($stamp)
 
 /*
  * Funcion auxiliar, muestra el nombre del cliente
+ * @deprecated
  */
 function nombre_cliente($id)
 {
@@ -241,6 +237,7 @@ function comprueba_cliente_total($vars)
 
 /*
  * Comprueba si el clientes es parcial
+ * @deprecated
  */
 function comprueba_cliente_parcial($cliente)
 {
@@ -258,7 +255,7 @@ function informacion_despacho($vars)
     if($vars[tipo]==0)
     {
         $cliente[cliente]=$vars[despacho];
-        $datos_cliente = explode(";",dame_nombre_cliente($cliente));
+        $datos_cliente = explode(";",dameNombreCliente($cliente));
         $cadena.="<form id='ficha_cliente' method='post' action=''>";
         $cadena.="<div class='seccion'>Cliente:</div><p>".$datos_cliente[1]."</p>";
     //Codigo Negocio
@@ -635,7 +632,7 @@ function editar_ocupacion($vars)
     $param[otro]=$resultado[7];
     $param[registro]=$vars[ocupacion];
     //FIN NUEVA FASE
-    $cadena.=formulario_despacho($param);
+    $cadena.=formularioDespacho($param);
     return $cadena;
 }
 

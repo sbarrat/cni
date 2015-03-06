@@ -17,3 +17,6 @@ tmp/*
 build/*
 atlassian*
 .idea/*
+vendor/*
+composer.lock
+

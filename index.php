@@ -2,7 +2,7 @@
 // TODO: Migrar de prototype a jQuery
 // TODO: Que se pueda modificar la contraseña de acceso
 // TODO: Agregar un nuevo campo a la factura: Nº Pedido
-require_once 'inc/variables.php';
+require_once 'inc/autoload.php';
 require_once 'inc/menu.php';
 require_once 'inc/avisos.php';
 $title = APLICACION ." - ". VERSION;

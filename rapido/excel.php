@@ -17,7 +17,7 @@ if (isset($_GET['mes']) && isset($_GET['cliente'])) {
     $mes_servicios = dame_el_mes($vars['mes']);
     $mes2 = $_GET['mes']-1;
     $mes_fijos = dame_el_mes($mes2);
-    $cliente_servicios = explode(";",dame_nombre_cliente($vars));
+    $cliente_servicios = explode(";",dameNombreCliente($vars));
 //echo ver_servicios_contratados($vars);<= Version Rapida OK
 //Version retocada estilo
     $mes_buscado = ( $_GET['mes'] <= 9 ) ? "0".$vars['mes'] : $vars['mes'];

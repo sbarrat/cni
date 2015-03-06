@@ -1,17 +1,9 @@
 <?php
-require_once 'Connection.php';
-
-class Listados
+/**
+ * Genera el listado pasando el servicio
+ */
+class Listados extends Connection
 {
-    /**
-     * @var Connection|null
-     */
-    private $conexion = null;
-
-    public function __construct()
-    {
-        $this->conexion = new Connection();
-    }
 
     public function servicios($servicio)
     {
@@ -28,6 +20,6 @@ class Listados
         INNER JOIN z_sercont AS z ON c.Id = z.idemp
         WHERE z.servicio LIKE ?
         ORDER BY Despacho";
-        return $this->conexion->consulta($sql, array($servicio));
+        return $this->conexion->consulta($sql, $servicio);
     }
 }

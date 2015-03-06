@@ -14,6 +14,7 @@
  * @link     https://github.com/independenciacn/cni
  * @version  2.0e Estable
  */
+
 error_reporting(E_ALL);
 /**
  * Establecemos la zona horaria
@@ -24,7 +25,7 @@ ini_set("date.timezone", "Europe/Madrid");
  *
  * @var string
  */
-define('VERSION', "2.0e");
+define('VERSION', "2015");
 /**
  * Titulo de la aplicación
  *
@@ -35,13 +36,12 @@ define('APLICACION', 'Aplicación Gestión Independencia Centro Negocios');
  * Iva Generico a utilizar en la aplicación
  * @var integer
  */
-define('IVA', 18 );
+define('IVA', 18);
 /**
  * Precio Generico del almacenaje
  * @var integer
  */
-define('ALMACENAJE',0.70);
-
+define('ALMACENAJE', 0.70);
 /**
  * Conexión a la base de datos
  *
@@ -83,6 +83,14 @@ setlocale(LC_NUMERIC, 'es_ES');
 
 $appPath = get_include_path(). PATH_SEPARATOR. $_SERVER['DOCUMENT_ROOT'];
 set_include_path($appPath);
+/**
+ * Direcctorio donde se almacenan las vistas
+ * @var string;
+ */
+define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . '/views');
+$view = new Zend_View();
+$view->setScriptPath(VIEWS);
+
 /**
  * Devuelve el precio formateado con 2 decimales separados por , miles . y
  * el simbolo del Euro;

@@ -1,6 +1,623 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component name="dataSourceStorage">
   <data-source name="Centro" uuid="2ffae29d-d607-4017-ae58-6970f5b1bb74">
-    <database-info product="" version="" jdbc-version="" driver-name="" driver-version=""/>
+    <database-info product="MySQL" version="5.5.41-0ubuntu0.14.04.1" jdbc-version="4.0" driver-name="MySQL-AB JDBC Driver" driver-version="mysql-connector-java-5.1.22 ( Revision: ${bzr.revision-id} )">
+      <extra-name-characters>#@</extra-name-characters>
+      <identifier-quote-string>`</identifier-quote-string>
+    </database-info>
+    <case-sensitivity plain-identifiers="exact" quoted-identifiers="exact"/>
+    <schema name="" catalog="centro"/>
+    <table name="agenda" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="despacho" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tipo_ocupacion" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="J3BhcmNpYWwn"/>
+      <column name="finc" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="ffin" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="hinc" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92" def="JzAwOjAwOjAwJw=="/>
+      <column name="hfin" sqlType="TIME" precision="8" scale="0" nullable="true" jdbcType="92" def="JzAwOjAwOjAwJw=="/>
+      <column name="otro" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="obs" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="conformidad" sqlType="SET" precision="5" scale="0" nullable="false" jdbcType="1" def="J05vJw=="/>
+      <column name="repeticion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="agenda_interna" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="dia" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="inicio" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="fin" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="repetir" sqlType="SET" precision="11" scale="0" nullable="true" jdbcType="1" def="Jyc=" remarks="Tm8sRGlhcmlhLFNlbWFuYWwsTWVuc3VhbCxBbnVhbCxPdHJh"/>
+      <column name="repeticion" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <column name="frecuencia" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4" def="MQ=="/>
+      <column name="color" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="agenda_interna_estado" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="dia" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="hora" sqlType="TIME" precision="8" scale="0" nullable="false" jdbcType="92"/>
+      <column name="color" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="id_tarea" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="agrupa_factura" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="concepto" sqlType="SET" precision="12" scale="0" nullable="false" jdbcType="1"/>
+      <column name="valor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="alias" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="tabla" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="campoo" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="campof" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="tipo" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="size" sqlType="VARCHAR" precision="2" scale="0" nullable="true" jdbcType="12"/>
+      <column name="mostrar" sqlType="SET" precision="5" scale="0" nullable="true" jdbcType="1"/>
+      <column name="enlace" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="variable" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="depende" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="campodep" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tablatex" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="campotex" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="tablavar" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="campovar" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="orden" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <index name="id" unique="false" columns="id"/>
+    </table>
+    <table name="atelipext" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idext" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="categoría servicios" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="40" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Descripción" sqlType="VARCHAR" precision="80" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Imagen" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="Notas1" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Nombre"/>
+      <index name="Ide" unique="false" columns="Id"/>
+    </table>
+    <table name="categorías clientes" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Descripción" sqlType="VARCHAR" precision="100" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Imagen" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="Notas1" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Nombre"/>
+      <index name="Id" unique="false" columns="Id"/>
+    </table>
+    <table name="cfm" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="ordinario" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="certificado" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="dcertificado" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="viernes" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <column name="dviernes" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="personas" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="faxes" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="paquetes" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="clientes" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Categoria" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Contacto" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cargo" sqlType="VARCHAR" precision="60" scale="0" nullable="true" jdbcType="12"/>
+      <column name="NIF" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Direccion" sqlType="VARCHAR" precision="75" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Ciudad" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CP" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Pais" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno1" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno2" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno3" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Fax" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMail" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Imagen" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="WWW" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Notas1" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Notas2" sqlType="VARCHAR" precision="150" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Estado_de_cliente" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="LTE="/>
+      <column name="Tarifa_Especial" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="razon" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dcomercial" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="desvio" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="LTE="/>
+      <column name="cocentro" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="copor" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="como" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="extranet" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="MA=="/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="ClientesNombre" unique="false" columns="Nombre"/>
+      <index name="Categoria" unique="false" columns="Categoria"/>
+    </table>
+    <table name="consumo de servicios" schema="" catalog="centro" type="TABLE">
+      <column name="Id Pedido" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Cliente" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Empleado" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Fecha" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="Id Pedido"/>
+      <index name="Cliente" unique="false" columns="Cliente"/>
+    </table>
+    <table name="dcentral" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="direccion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cp" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="poblacion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telefono" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="provincia" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="pais" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="despachos" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="metros" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="desvios" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="observacion" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="detalles consumo de servicios" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Id Pedido" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Servicio" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Categoría" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Magnitud" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cantidad" sqlType="DOUBLE" precision="10" scale="2" nullable="true" jdbcType="8"/>
+      <column name="PrecioUnidadPts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PrecioUnidadEuros" sqlType="DOUBLE" precision="15" scale="5" nullable="true" jdbcType="8"/>
+      <column name="ImportePts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ImporteEuro" sqlType="DOUBLE" precision="15" scale="5" nullable="true" jdbcType="8"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="observaciones" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="Id Pedido" unique="false" columns="Id Pedido"/>
+    </table>
+    <table name="detalles consumo de serviciospts" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Id Pedido" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Servicio" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Categoría" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Magnitud" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cantidad" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PrecioUnidadPts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PrecioUnidadEuros" sqlType="DOUBLE" precision="7" scale="2" nullable="true" jdbcType="8"/>
+      <column name="ImportePts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="ImporteEuro" sqlType="DOUBLE" precision="7" scale="2" nullable="true" jdbcType="8"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="Id" unique="false" columns="Id Pedido"/>
+      <index name="Id2" unique="false" columns="Id"/>
+    </table>
+    <table name="empleados" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Apell1" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Apell2" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cargo" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tratamiento" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="FechNac" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="FechCon" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="Direccion" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Ciudad" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CP" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno1" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno2" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Notas1" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Notas2" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="entradas_salidas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="entrada" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="salida" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="categoria" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="extranet" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="observacion" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="facturacion" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="finicio" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="duracion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="renovacion" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="fpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sfactura" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="direccion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="ibase" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="fpago" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="observaciones" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="historico" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="factura" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="servicio" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cantidad" sqlType="DOUBLE" precision="11" scale="2" nullable="false" jdbcType="8"/>
+      <column name="unitario" sqlType="DOUBLE" precision="10" scale="2" nullable="false" jdbcType="8"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="obs" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="factura" unique="false" columns="factura"/>
+      <index name="servicio" unique="false" columns="servicio"/>
+    </table>
+    <table name="historio_backup" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="factura" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="servicio" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cantidad" sqlType="DOUBLE" precision="11" scale="2" nullable="false" jdbcType="8"/>
+      <column name="unitario" sqlType="DOUBLE" precision="10" scale="2" nullable="false" jdbcType="8"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="obs" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="factura" unique="false" columns="factura"/>
+      <index name="servicio" unique="false" columns="servicio"/>
+    </table>
+    <table name="listin" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Contacto" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno1" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno2" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno3" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Fax" sqlType="VARCHAR" precision="12" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMail" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="ListinTfno1" unique="false" columns="Tfno1"/>
+    </table>
+    <table name="magnitud" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="menus" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="pagina" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="imagen" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="meses" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="NombreMes" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+    </table>
+    <table name="notas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="nota" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="pcentral" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="telefono" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="persona_central" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="departamento" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cumple" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="observaciones" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="pempresa" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="apellidos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telefono" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="cumple" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="observaciones" sqlType="MEDIUMTEXT" precision="16777215" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="pproveedores" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="apellidos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telefono" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="email" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="proveedores" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="nocor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="actividad" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Contacto" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Cargo" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Direccion" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Ciudad" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="CP" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Pais" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cif" sqlType="VARCHAR" precision="30" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno1" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno2" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Tfno3" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Fax" sqlType="VARCHAR" precision="15" scale="0" nullable="true" jdbcType="12"/>
+      <column name="EMail" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Notas1" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="Notas2" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="WWW" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="descuentos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="Id" unique="false" columns="cif"/>
+      <index name="Id1" unique="false" columns="Id"/>
+      <index name="ProveedoresTfno1" unique="false" columns="Tfno1"/>
+    </table>
+    <table name="regfacturas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="mes" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="ano" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="codigo_alt" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="fecha_alt" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="obs_alt" sqlType="TEXT" precision="65535" scale="0" nullable="true" jdbcType="-1"/>
+      <column name="dia" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="fecha_final" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="codigo" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MA=="/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="iva" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="importe" sqlType="DECIMAL" precision="10" scale="2" nullable="false" jdbcType="3" def="MC4wMA=="/>
+      <column name="fecha_inicial" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91" def="JzAwMDAtMDAtMDAn"/>
+      <column name="fpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="obs_fpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="pedidoCliente" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="codigo" unique="false" columns="codigo"/>
+      <index name="fecha" unique="false" columns="fecha"/>
+    </table>
+    <table name="sercont" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idser" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="falta" sqlType="TIMESTAMP" precision="19" scale="0" nullable="false" jdbcType="93" def="Q1VSUkVOVF9USU1FU1RBTVA=" version="true"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="servicios2" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="99" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Imagen" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="Proveedor" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Categoria" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Magnitud" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PrecioPts" sqlType="VARCHAR" precision="10" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PrecioEuro" sqlType="DOUBLE" precision="10" scale="2" nullable="true" jdbcType="8"/>
+      <column name="Estado_de_servicio" sqlType="TINYINT" precision="3" scale="0" nullable="true" jdbcType="-6" def="LTE="/>
+      <column name="Ano" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="servicios3" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Imagen" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="Proveedor" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Categoría" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Magnitud" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PrecioPts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PrecioEuro" sqlType="DOUBLE" precision="7" scale="2" nullable="true" jdbcType="8"/>
+      <column name="Estado de servicio" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="Ano" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Nombre"/>
+      <index name="Id" unique="false" columns="Id"/>
+    </table>
+    <table name="serviciospts" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="VARCHAR" precision="20" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <column name="Imagen" sqlType="LONGBLOB" precision="2147483647" scale="0" nullable="true" jdbcType="-4"/>
+      <column name="Proveedor" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Categoría" sqlType="VARCHAR" precision="40" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Magnitud" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="PrecioPts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="PrecioEuro" sqlType="DOUBLE" precision="7" scale="2" nullable="true" jdbcType="8"/>
+      <column name="Estado de servicio" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6"/>
+      <column name="Ano" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="Nombre,Ano"/>
+      <index name="Id" unique="false" columns="Id"/>
+    </table>
+    <table name="sesiones" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="sesion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="submenus" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="menu" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="pagina" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="imagen" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="listado" sqlType="VARCHAR" precision="2" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="tareas_pendientes" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombre" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="vencimiento" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="prioridad" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="realizada" sqlType="SET" precision="5" scale="0" nullable="false" jdbcType="1" def="J05vJw=="/>
+      <column name="asignada" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="tarifa_cliente" schema="" catalog="centro" type="TABLE">
+      <column name="Id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="ID_Cliente" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Servicio" sqlType="VARCHAR" precision="50" scale="0" nullable="true" jdbcType="12"/>
+      <column name="Imp_Pts" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="Imp_Euro" sqlType="DOUBLE" precision="7" scale="2" nullable="true" jdbcType="8"/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="observaciones" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="unidades" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <primary-key name="PRIMARY" columns="Id"/>
+      <index name="Id" unique="false" columns="Id"/>
+      <index name="ID_Cliente" unique="false" columns="ID_Cliente"/>
+    </table>
+    <table name="tcentral" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="telefono" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="telipext" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="tipo" sqlType="SET" precision="21" scale="0" nullable="false" jdbcType="1"/>
+      <column name="direccion" sqlType="VARCHAR" precision="100" scale="0" nullable="false" jdbcType="12"/>
+      <column name="asignada" sqlType="SET" precision="5" scale="0" nullable="false" jdbcType="1" def="J05vJw=="/>
+      <column name="descripcion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="tipos_teleco" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="tipo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="tllamadas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="dar_telefono" sqlType="TINYINT" precision="3" scale="0" nullable="false" jdbcType="-6" def="LTE="/>
+      <column name="telefono" sqlType="VARCHAR" precision="20" scale="0" nullable="false" jdbcType="12"/>
+      <column name="toma_llamada" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <column name="observaciones" sqlType="TEXT" precision="65535" scale="0" nullable="false" jdbcType="-1"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="usuarios" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="Apellidos" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="nick" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="contra" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="uacceso" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="bloqueado" sqlType="SET" precision="5" scale="0" nullable="false" jdbcType="1" def="Jyc="/>
+      <column name="ccontra" sqlType="DATETIME" precision="19" scale="0" nullable="false" jdbcType="93" def="JzAwMDAtMDAtMDAgMDA6MDA6MDAn"/>
+      <column name="correo" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="w_facturas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="codigo" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="w_proformas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="codigo" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="wdet_facturas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="id_factura" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_concepto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="wdet_proformas" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_proforma" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="id_concepto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_almacen" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="cliente" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="bultos" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="inicio" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fin" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_ccontratos" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="contrato" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="tabla" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="campot" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="campof" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="campoc" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="orden" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_conocido" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="Nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_contratos" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="nombre" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="fichero" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="totcamp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_det_presupuesto" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idpresupuesto" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="concepto" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <column name="importe" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="unidades" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MQ=="/>
+      <column name="iva" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" def="MTY="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_facturacion" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="idcontrato" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="finicio" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="duracion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="renovacion" sqlType="DATE" precision="10" scale="0" nullable="true" jdbcType="91"/>
+      <column name="fpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="dpago" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="cc" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="sfactura" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="direccion" sqlType="VARCHAR" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="directrizes" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_presupuestos" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idproveedor" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="fecha" sqlType="DATE" precision="10" scale="0" nullable="false" jdbcType="91"/>
+      <column name="detalles" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12" def="Jyc="/>
+      <primary-key name="PRIMARY" columns="id"/>
+    </table>
+    <table name="z_sercont" schema="" catalog="centro" type="TABLE">
+      <column name="id" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4" autoIncrement="true"/>
+      <column name="idemp" sqlType="INT" precision="10" scale="0" nullable="false" jdbcType="4"/>
+      <column name="servicio" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="valor" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="observacion" sqlType="VARCHAR" precision="255" scale="0" nullable="false" jdbcType="12"/>
+      <column name="boca" sqlType="VARCHAR" precision="50" scale="0" nullable="false" jdbcType="12"/>
+      <primary-key name="PRIMARY" columns="id"/>
+      <index name="valor" unique="false" columns="valor"/>
+    </table>
   </data-source>
 </component>

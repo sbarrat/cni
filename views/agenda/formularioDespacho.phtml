@@ -1,0 +1,52 @@
+<?php
+/**
+ * Vista del formulario de Agenda / Despachos
+ * User: ruben
+ * Date: 6/03/15
+ * Time: 13:54
+ */
+$muestra = ($this->vars['despacho'] == 23) ?
+    "Sala de Juntas" :
+    "Despacho " . $this->vars['despacho'];
+?>
+<div class='boton_cerrar' onclick='cerrar_formulario_agenda()'></div>
+<form name='form_despachos' id='form_despachos' method='post'
+    action='' onsubmit='<?php echo $this->onSubmit ?>'>
+    <?php echo $hidden ?>
+    <input type='hidden' name='despacho' id='despacho' readonly
+        value='<?php echo $this->vars['despacho'] ?>' />
+    <input type='hidden' name='id_cliente' readonly id='id_cliente'
+        value='<?php echo $idCliente ?>'/></div>
+    <div class='seccion'>
+    <?php echo $muestra ?>
+    <br/>
+    <label for='cliente'>Cliente:</label>
+    <input type='text' name='cliente' id='cliente' autocomplete='off' onkeyup='busca_cliente()'
+        size='24%' value='<?php echo $this->cliente ?>' >
+    <div id='listado_clientes_agenda'></div>
+    <label for='no_cliente'>Otro:</label>
+    <input type='text' name='no_cliente' id='no_cliente'
+        size='24%' value='<?php echo $this->vars['otro'] ?>'/><br/>
+    <input type='button' onclick='limpia_nombre_cliente()' value='Limpiar' /><br/>
+    <div class='seccion'>Fecha Entrada&nbsp;|&nbsp;Fecha Salida</div><br/>
+    <center>
+        <input type='text' name='finc' id='finc' size='10'
+            value='<?php echo $this->finc ?>'>
+        <input type='button' class='calendario_agenda' id='trigger_finc' value='..'/>&nbsp;
+        <input type='text' id='ffin' name='ffin' size='10'
+            value='<?php echo $this->ffin ?>'/>
+        <input type='button' id='trigger_ffin' class='calendario_agenda' value='..'/>
+    </center>
+    <br/>
+    Repetir todos los:<br><?php echo $this->repeticiones ?>
+    <div class='seccion'>&nbsp;Entrada (hh:mm)&nbsp;|&nbsp;Salida (hh:mm)</div><br>
+    <center>
+        <input type='text' name='hinc' size=5 value='<?php echo $this->hinc ?>'/>&nbsp;&nbsp;
+        <input type='text' name='hfin' size=5 value='<?php echo $this->hfin ?>'/>
+        <br><div id='debug'></div>
+        <br/><input type='submit' name='<?php echo $this->btnName ?>'
+            value='<?php echo $this->btnName ?>' >&nbsp;&nbsp;&nbsp;
+        <input type='button' name='Cancelar'
+            onclick='cerrar_formulario_despacho()' value='Cancelar' />
+    </center>
+</form>

@@ -1,23 +1,6 @@
 <?php
-require_once 'Connection.php';
-
-
-class Avisos
+class Avisos extends Connection
 {
-
-    /**
-     * @var Connection|null
-     */
-    private $conexion = null;
-
-    /**
-     *
-     */
-    public function __construct()
-    {
-        $this->conexion = new Connection();
-    }
-
     /**
      * Devuelve los cumpleaños de los empleados de la central
      * @param $cuando
@@ -98,12 +81,16 @@ class Avisos
         return $this->conexion->consulta($sql);
     }
 
+    /**
+     * @param string $cuando
+     * @return array
+     */
     public function finalizanContrato($cuando = 'hoy')
     {
         $between = $this->filterBetweenContrato($cuando);
         $sql = "SELECT facturacion.id,
         facturacion.idemp,
-        DATE_FORMAT(facturacion.finicio, '%d-%m-%Y) as finicio,
+        DATE_FORMAT(facturacion.finicio, '%d-%m-%Y') as finicio,
         facturacion.duracion,
         DATE_FORMAT(facturacion.renovacion, '%d-%m-%Y') as renovacion
         clientes.Nombre
@@ -112,20 +99,25 @@ class Avisos
         DAY(renovacion) asc";
         return $this->conexion->consulta($sql);
     }
+
+    /**
+     * @param $cuando
+     * @return string
+     */
     private function filterBetweenContrato($cuando)
     {
+        $between = " BETWEEN
+            DATE_ADD(
+                DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 30 DAY)
+            AND DATE_ADD(CURDATE(), INTERVAL 60 DAY)";
         if ($cuando == 'hoy') {
             $between = " LIKE CURDATE()";
         } elseif ($cuando == 'mes') {
             $between = " BETWEEN
                 DATE_ADD(CURDATE(), INTERVAL 1 DAY)
                 AND DATE_ADD(CURDATE(), INTERVAL 30 DAY)";
-        } else {
-            $between = " BETWEEN
-            DATE_ADD(
-                DATE_ADD(CURDATE(), INTERVAL 1 DAY), INTERVAL 30 DAY)
-            AND DATE_ADD(CURDATE(), INTERVAL 60 DAY)";
         }
+        return $between;
     }
 
     /**
@@ -134,14 +126,13 @@ class Avisos
      */
     private function filterBetween($cuando)
     {
+        $between = "BETWEEN
+                DATE_ADD(CURDATE(), INTERVAL 2 DAY) AND
+                DATE_ADD(CURDATE(), INTERVAL 1 MONTH)";
         if ($cuando == 'hoy') {
             $between = " = CURDATE()";
         } elseif ($cuando == 'mañana') {
             $between = " = DATE_ADD(CURDATE(), INTERVAL 1 DAY)";
-        } else {
-            $between = "BETWEEN
-                DATE_ADD(CURDATE(), INTERVAL 2 DAY) AND
-                DATE_ADD(CURDATE(), INTERVAL 1 MONTH)";
         }
         return $between;
     }

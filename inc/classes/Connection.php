@@ -7,29 +7,31 @@ class Connection
     /**
      * @var null|Pdo
      */
-    private $conexion = null;
+    private $conexion = false;
     private $host = "localhost";
     private $username = "cni";
     private $password = "inc";
     private $dbname = "centro";
-
+    private $port = '3306';
     /**
      * Constructor de conexion a la base de datos
      */
     public function __construct()
     {
-        $dsn = 'mysql:dbname='.$this->dbname.';host='.$this->host;
-        $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES 'utf8'");
         try {
-            $this->conexion = new PDO(
-                $dsn,
-                $this->username,
-                $this->password,
-                $options
+            $this->conexion = new Zend_Db_Adapter_Pdo_Mysql(
+                array(
+                    'host' => $this->host,
+                    'username' => $this->username,
+                    'password' => $this->password,
+                    'dbname' => $this->dbname,
+                    'port' => $this->port,
+                    'driver_options' => array(MYSQLI_INIT_COMMAND => 'SET NAMES UTF8;')
+                )
             );
         } catch (PDOException $e) {
             echo 'Connection failed: ' . $e->getMessage();
-            xdebug_var_dump($e->getTraceAsString());
+            $this->conexion = false;
         }
     }
 
@@ -41,8 +43,10 @@ class Connection
      */
     public function consulta($sql, $params = null)
     {
-        $stmt = $this->conexion->prepare($sql);
-        $stmt->execute($params);
-        return $stmt->fetchAll();
+        $result = false;
+        if ($this->conexion) {
+            $result = $this->conexion->fetchAll($sql, $params);
+        }
+        return $result;
     }
 }
