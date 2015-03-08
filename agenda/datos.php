@@ -168,50 +168,25 @@ function listadoDeClientes($vars)
     return $html;
 }
 
-/*
- * DEVUELVE EL NOMBRE DEL CLIENTE
- * @deprecated
+/**
+ * Devuelve el nombre y el id del cliente
+ * @param  int $vars el id del cliente
+ * @return string       la cadena con id y nombre
  */
 function dameNombreCliente($vars)
 {
-    global $con;
-    $sql = "Select * from `clientes` where id like $vars[cliente] ";
-    $consulta = @mysql_query($sql,$con);
-    $resultado = @mysql_fetch_array($consulta);
-    $cadena = $resultado[0].";".traduce($resultado[1]);
+    $cadena = "";
+    $cliente = new Clientes();
+    $results = $cliente->nombreClientePorId($vars['cliente']);
+    if (count($results)) {
+        $cadena = $vars['cliente'].";".$results[0]['Nombre'];
+    }
     return $cadena;
-}
-/*
- * FUNCIONES AUXILIARES
- */
-
-
-/*
- * Cambio de formato de fecha, en ambos sentidos
- * @deprecated
- */
-function cambiaf($stamp)
-{
-    $fdia = explode("-",$stamp);
-    $fecha = $fdia[2]."-".$fdia[1]."-".$fdia[0];
-    return $fecha;
-}
-
-/*
- * Funcion auxiliar, muestra el nombre del cliente
- * @deprecated
- */
-function nombre_cliente($id)
-{
-    global $con;
-    $sql="Select Nombre from clientes where id like $id";
-    $consulta = @mysql_query($sql,$con);
-    $resultado = @mysql_fetch_array($consulta);
-    return $resultado[Nombre];
 }
 
 /*
  * Quita los segundos en la visualizacion
+ * @deprecated sustituir por Html->convertDate
  */
 function quita_segundos($hora)
 {

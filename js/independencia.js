@@ -177,6 +177,9 @@ function campos_fecha(tabla)
         case "entradas_salidas":
             inputFields = ['entrada', 'salida'];
             break;
+        case "agenda":
+            inputFileds = ['finc', 'ffin'];
+            break;
     }
     for (var i = 0; i < inputFields.length; i++) {
         Calendar.setup({

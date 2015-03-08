@@ -11,7 +11,7 @@ class Html
     }
 
     /**
-     * Convierte la fecha en un sentido y otro
+     * Convierte la fecha y el tiempo de un formato a otro
      * @param $fecha
      * @param string $origin
      * @param string $dest
@@ -22,5 +22,4 @@ class Html
         $fecha = date_create_from_format($origin, $fecha);
         return $fecha->format($dest);
     }
-
 }
