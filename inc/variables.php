@@ -88,8 +88,37 @@ set_include_path($appPath);
  * @var string;
  */
 define("VIEWS", $_SERVER['DOCUMENT_ROOT'] . '/views');
-$view = new Zend_View();
-$view->setScriptPath(VIEWS);
+/**
+ * Listado de Meses
+ * @var array
+ */
+$meses = array(
+    1 =>"Enero",
+    "Febrero",
+    "Marzo",
+    "Abril",
+    "Mayo",
+    "Junio",
+    "Julio",
+    "Agosto",
+    "Septiembre",
+    "Octubre",
+    "Noviembre",
+    "Diciembre"
+    );
+/**
+ * Listado de dias
+ * @var array
+ */
+$dia = array(
+    1 => "Lunes",
+    "Martes",
+    "Miercoles",
+    "Jueves",
+    "Viernes",
+    "Sabado",
+    "Domingo"
+    );
 
 /**
  * Devuelve el precio formateado con 2 decimales separados por , miles . y

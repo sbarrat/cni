@@ -21,3 +21,5 @@ $autoloader->pushAutoloader(
         \Zend_Loader::loadClass($className, __DIR__.'/classes/', true);
     }
 );
+$view = new Zend_View();
+$view->setScriptPath(VIEWS);

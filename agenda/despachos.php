@@ -1,7 +1,8 @@
 <?php
-require_once '../inc/variables.php';
-require_once '../inc/classes/Connection.php';
-require_once 'funciones.php';
+/**
+ * Muestra la tabla de los despachos con su ocupación o no
+ */
+require_once '../inc/autoload.php';
 $con = new Connection();
 $sql = "SELECT z.valor, c.Nombre, c.id ,c.Categoria
     FROM clientes AS c  JOIN z_sercont AS z ON c.id like z.idemp
@@ -45,7 +46,7 @@ for ($i = 0; $i < $filas; $i++) :
         $txtDespacho .= "<input type='hidden' id='cliente_despacho_".$despacho."'
             value='".$value."' />";
         ?>
-        <td width='16.66%' id='despacho_$despacho' valign='top'>
+        <td width='16.66%' id='despacho_<?php echo $despacho ?>' valign='top'>
             <div class='cabezera_despacho'>
                 <?php echo $titulo ?>
                 <?php echo $txtDespacho ?>
