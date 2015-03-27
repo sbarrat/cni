@@ -581,7 +581,8 @@ if($historico == "ok") {
 	$consulta = mysql_query($sql,$con);
 	while (true == ($resultado = mysql_fetch_array($consulta))) {
 		$dias_almacen = $resultado[1];
-		$subtotala = $resultado[0]*$dias_almacen*$par_almacenaje['PrecioEuro'];
+        $precioUnitario = $dias_almacen * $par_almacenaje['PrecioEuro'];
+		$subtotala = $resultado[0] * $precioUnitario;
         $totala = iva($subtotala,$par_almacenaje['iva']);
 		echo "<tr>
 		<td ><p class='texto'>Bultos Almacenados del  ".
