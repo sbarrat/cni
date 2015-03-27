@@ -25,7 +25,7 @@ class Avisos extends Connection
         WHERE clientes.Estado_de_cliente != 0
         HAVING fecha $between
         ORDER BY fecha";
-        return $this->conexion->consulta($sql);
+        return $this->consulta($sql);
     }
 
     /**
@@ -52,7 +52,7 @@ class Avisos extends Connection
         WHERE clientes.Estado_de_cliente != 0
         HAVING fecha $between
         ORDER BY fecha";
-        return $this->conexion->consulta($sql);
+        return $this->consulta($sql);
     }
 
     /**
@@ -78,7 +78,7 @@ class Avisos extends Connection
         FROM empleados
         HAVING fecha $between
         ORDER BY fecha";
-        return $this->conexion->consulta($sql);
+        return $this->consulta($sql);
     }
 
     /**
@@ -92,12 +92,12 @@ class Avisos extends Connection
         facturacion.idemp,
         DATE_FORMAT(facturacion.finicio, '%d-%m-%Y') as finicio,
         facturacion.duracion,
-        DATE_FORMAT(facturacion.renovacion, '%d-%m-%Y') as renovacion
+        DATE_FORMAT(facturacion.renovacion, '%d-%m-%Y') as renovacion,
         clientes.Nombre
         FROM facturacion INNER JOIN clientes ON facturacion.idemp = clientes.Id
         WHERE clientes.Estado_de_cliente != 0 AND renovacion $between
-        DAY(renovacion) asc";
-        return $this->conexion->consulta($sql);
+        ORDER BY DAY(renovacion) asc";
+        return $this->consulta($sql);
     }
 
     /**

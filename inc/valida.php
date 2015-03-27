@@ -14,8 +14,8 @@
  * @link     https://github.com/independenciacn/cni
  * @version  2.0e Estable
  */
-require_once 'variables.php';
-require_once 'inc/classes/Connection.php';
+
+require_once 'autoload.php';
 checkSession();
 $url = 'Location:../index.php';
 $error = '?error=1';
